@@ -2,13 +2,13 @@ package com.univates.tcc.abacate.application.setup;
 
 public interface SetupConstants {
 
-	public interface DataSource {
+	interface DataSource { // Package
 		public final String MAIN_DATASOURCE = "AbacateDS";
 		public final String ENTITY_MANAGER = "entityManager";
 		public final String ENTITY_MANAGER_FACTORY = "entityManagerFactory";
 		public final String TRANSACTION_MANAGER = "transactionManager";
 		
-		public interface Properties {
+		interface Properties {
 			public final String DDL_AUTO = "hibernate.hbm2ddl.auto";
 			public final String DIALECT = "hibernate.dialect";
 			public final String SHOW_SQL = "hibernate.show_sql";

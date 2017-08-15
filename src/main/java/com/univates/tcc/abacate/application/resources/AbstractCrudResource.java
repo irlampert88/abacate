@@ -23,32 +23,32 @@ abstract class AbstractCrudResource<ENTITY extends AbstractEntity<PK>, PK extend
 	}
 	
 	@RequestMapping(method=RequestMethod.POST) 
-	public final ResponseEntity<ENTITY> save(@RequestBody ENTITY entity){
+	public ResponseEntity<ENTITY> save(@RequestBody ENTITY entity){
 		entity = repository.save(entity);		
 		return new ResponseEntity<ENTITY>(entity, HttpStatus.OK);
 	}	
 	
-	@RequestMapping(method=RequestMethod.PUT)
-	public final ResponseEntity<ENTITY> update(@RequestBody ENTITY entity){
+	@RequestMapping(method=RequestMethod.PATCH)
+	public ResponseEntity<ENTITY> update(@RequestBody ENTITY entity){
 		entity = repository.save(entity);
 		return new ResponseEntity<ENTITY>(entity, HttpStatus.OK);
 	}	
 
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
-	public final ResponseEntity<ENTITY> delete(@PathVariable("id") PK id){
+	public ResponseEntity<ENTITY> delete(@PathVariable("id") PK id){
 		repository.delete(id);
 		return new ResponseEntity<ENTITY>(HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/{id}", method=RequestMethod.GET)
 	public final ResponseEntity<ENTITY> findById(@PathVariable PK id){
-		ENTITY found = repository.findOne(id);
+		final ENTITY found = repository.findOne(id);
 		return new ResponseEntity<ENTITY>(found, HttpStatus.OK);
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public final ResponseEntity<Iterable<ENTITY>> findAll(){
-		Iterable<ENTITY> founds = repository.findAll();
+		final Iterable<ENTITY> founds = repository.findAll();
 		return new ResponseEntity<Iterable<ENTITY>>(founds, HttpStatus.OK);		
 	}
 	

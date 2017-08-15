@@ -1,5 +1,6 @@
 package com.univates.tcc.abacate.domain.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,8 +15,12 @@ public final class Foo extends AbstractEntity<Long> {
 
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Column
 	private String nick;
+	@Column
 	private Long document;
 
 	public Foo() {
@@ -32,8 +37,6 @@ public final class Foo extends AbstractEntity<Long> {
 	}
 	
 	@Override
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getId() {
 		return id;
 	}
