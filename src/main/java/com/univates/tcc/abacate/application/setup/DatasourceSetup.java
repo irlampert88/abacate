@@ -23,8 +23,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableTransactionManagement
 @EnableAutoConfiguration
-@EnableJpaRepositories(entityManagerFactoryRef = "entityManagerFactory",
-					   transactionManagerRef = "transactionManager", 
+@EnableJpaRepositories(entityManagerFactoryRef = SetupConstants.DataSource.ENTITY_MANAGER_FACTORY,
+					   transactionManagerRef = SetupConstants.DataSource.TRANSACTION_MANAGER, 
 					   basePackages = {
 							SetupConstants.Packages.REPOSITORY, 
 							SetupConstants.Packages.REPOSITORY_INTEGRATION })
@@ -41,19 +41,19 @@ public class DatasourceSetup implements Serializable {
 	@Autowired
 	private Environment enviroment;
 
-	@Bean(name = "entityManager")
+	@Bean(name = SetupConstants.DataSource.ENTITY_MANAGER)
 	public EntityManager entityManager() {
 		return entityManagerFactory().createEntityManager();
 	}
 
 	@Primary
-	@Bean(name = "entityManagerFactory")
+	@Bean(name = SetupConstants.DataSource.ENTITY_MANAGER_FACTORY)
 	public EntityManagerFactory entityManagerFactory() {
 		LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
 		emf.setDataSource(dataSource);
 		emf.setJpaVendorAdapter(jpaVendorAdapter);
 		emf.setPackagesToScan(new String[] { SetupConstants.Packages.ENTITIES });
-		emf.setPersistenceUnitName(SetupConstants.MAIN_DATASOURCE_NAME);
+		emf.setPersistenceUnitName(SetupConstants.DataSource.MAIN_DATASOURCE);
 		emf.setJpaProperties(additionalProperties());
 		emf.afterPropertiesSet();
 		return emf.getObject();
@@ -61,14 +61,14 @@ public class DatasourceSetup implements Serializable {
 
 	private Properties additionalProperties() {
 		Properties properties = new Properties();
-		properties.setProperty("hibernate.hbm2ddl.auto", enviroment.getProperty("hibernate.hbm2ddl.auto"));
-		properties.setProperty("hibernate.dialect", enviroment.getProperty("hibernate.dialect"));
-		properties.setProperty("hibernate.show_sql", enviroment.getProperty("hibernate.show_sql"));
-		properties.setProperty("hibernate.format_sql", enviroment.getProperty("hibernate.format_sql"));
+		properties.setProperty(SetupConstants.DataSource.Properties.DDL_AUTO, enviroment.getProperty(SetupConstants.DataSource.Properties.DDL_AUTO));
+		properties.setProperty(SetupConstants.DataSource.Properties.DIALECT, enviroment.getProperty(SetupConstants.DataSource.Properties.DIALECT));
+		properties.setProperty(SetupConstants.DataSource.Properties.SHOW_SQL, enviroment.getProperty(SetupConstants.DataSource.Properties.SHOW_SQL));
+		properties.setProperty(SetupConstants.DataSource.Properties.FORMAT_SQL, enviroment.getProperty(SetupConstants.DataSource.Properties.FORMAT_SQL));
 		return properties;
 	}
 
-	@Bean(name = "transactionManager")
+	@Bean(name = SetupConstants.DataSource.TRANSACTION_MANAGER)
 	public PlatformTransactionManager transactionManager() {
 		JpaTransactionManager tm = new JpaTransactionManager();
 		tm.setRollbackOnCommitFailure(true);
