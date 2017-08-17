@@ -1,1 +1,6 @@
 /target/
+_project.xml
+_classpath.xml
+.project
+.classpath
+.settings/
