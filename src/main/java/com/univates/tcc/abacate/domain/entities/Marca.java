@@ -11,7 +11,7 @@ import javax.persistence.Table;
 @Table(name = "marcas")
 public class Marca extends AbstractEntity<Integer> {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -8772150325707462263L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

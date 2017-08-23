@@ -16,7 +16,7 @@ import com.univates.tcc.abacate.integration.repositories.converters.LocalDateTim
 @Table(name = "usuarios")
 public class Usuario extends AbstractEntity<Integer> {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -3471647191081637279L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
