@@ -7,8 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.univates.tcc.abacate.domain.aggregates.Families;
-
 @Entity
 @Table(name = "tb_foo")
 public final class Foo extends AbstractEntity<Long> {
@@ -18,8 +16,10 @@ public final class Foo extends AbstractEntity<Long> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
 	@Column
 	private String nick;
+	
 	@Column
 	private Long document;
 
@@ -31,11 +31,6 @@ public final class Foo extends AbstractEntity<Long> {
 		this.document = document;
 	}
 
-	@Override
-	public final Families family() {
-		return Families.FOO;
-	}
-	
 	@Override
 	public Long getId() {
 		return id;

@@ -7,7 +7,6 @@ import javax.persistence.Version;
 
 import org.hibernate.annotations.OptimisticLock;
 
-import com.univates.tcc.abacate.domain.aggregates.Families;
 import com.univates.tcc.abacate.domain.aggregates.Identifiable;
 import com.univates.tcc.abacate.domain.helpers.CloneEntity;
 import com.univates.tcc.abacate.domain.helpers.EntityComparator;
@@ -20,8 +19,6 @@ public abstract class AbstractEntity<ID extends Serializable>
 	implements Identifiable<ID>, Serializable, Cloneable, Comparable<AbstractEntity<ID>> {
 	
 	private static final long serialVersionUID = 1L;
-
-	public abstract Families family();
 	
 	/** 
 	 * @see OptimisticLock

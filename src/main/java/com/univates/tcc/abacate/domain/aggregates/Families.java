@@ -8,7 +8,7 @@ public enum Families
 	FOO("0001", "Foo", ""),
 	
 	// Domain
-	PERSON("0102", "Pessoa", ""),
+	USUARIO("0101", "Usuario", ""),
 	;
 	
 	private final String uuid;
