@@ -12,7 +12,7 @@ public class AbacateRest {
 
 	@RequestMapping(value="/", method = RequestMethod.GET)
 	public String index() {
-		return "Bem vindo ao Abacate!";
+		return "Bem vindo ao Abacate V1.0.0 !";
 	}
 
 }
