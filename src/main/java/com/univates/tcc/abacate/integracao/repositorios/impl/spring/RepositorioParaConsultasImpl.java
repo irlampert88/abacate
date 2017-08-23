@@ -1,23 +1,22 @@
 package com.univates.tcc.abacate.integracao.repositorios.impl.spring;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 import javax.persistence.EntityManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.univates.tcc.abacate.dominio.entidades.EntidadeAbstrata;
-import com.univates.tcc.abacate.integracao.repositorios.agregadores.RepositorioDeCrudCustomizadoAbstrato;
+import com.univates.tcc.abacate.integracao.repositorios.agregadores.RepositorioParaConsultas;
 
-public class ImplementacaoDoRepositorioDeCrud<E extends EntidadeAbstrata<ID>, ID extends Serializable>
-	implements RepositorioDeCrudCustomizadoAbstrato<E, ID> {
+@Repository
+public class RepositorioParaConsultasImpl<E extends EntidadeAbstrata<ID>, ID extends Serializable>
+	implements RepositorioParaConsultas<E, ID> {
 
-	private EntityManager entityManager;
-	
 	@Autowired
-	public ImplementacaoDoRepositorioDeCrud(EntityManager entityManager) {
-		this.entityManager = entityManager;
-	}
+	private EntityManager entityManager;
 	
 	@Override
 	public E buscarUmPeloExemplo(E exampleEntity) {
@@ -30,7 +29,7 @@ public class ImplementacaoDoRepositorioDeCrud<E extends EntidadeAbstrata<ID>, ID
 	}
 
 	@Override
-	public Iterable<E> buscarPeloExemplo(E exampleEntity) {
+	public Collection<E> buscarPeloExemplo(E exampleEntity) {
 		System.out.println("FIND ALL BY EXAMPLE");
 		return null;
 	}
