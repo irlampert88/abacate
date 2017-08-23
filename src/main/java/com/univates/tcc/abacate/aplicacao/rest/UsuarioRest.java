@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.univates.tcc.abacate.dominio.entidades.Usuario;
-import com.univates.tcc.abacate.dominio.repositorios.UsuarioRepositorio;
+import com.univates.tcc.abacate.dominio.servicos.UsuarioServico;
 
 @RestController
 @RequestMapping("/usuarios")
@@ -14,8 +14,8 @@ import com.univates.tcc.abacate.dominio.repositorios.UsuarioRepositorio;
 public class UsuarioRest extends CrudAbstratoRest<Usuario, Integer> {
 
 	@Autowired
-	public UsuarioRest(UsuarioRepositorio repositorio) {
-		super(repositorio);
+	public UsuarioRest(UsuarioServico servicoDeCrud) {
+		super(servicoDeCrud);
 	}
 	
 }

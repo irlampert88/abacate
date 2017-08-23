@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.univates.tcc.abacate.dominio.entidades.Terminacao;
-import com.univates.tcc.abacate.dominio.repositorios.TerminacaoRepositorio;
+import com.univates.tcc.abacate.dominio.servicos.TerminacaoServico;
 
 @RestController
 @RequestMapping("/terminacoes")
@@ -14,8 +14,8 @@ import com.univates.tcc.abacate.dominio.repositorios.TerminacaoRepositorio;
 public class TerminacaoRest extends CrudAbstratoRest<Terminacao, Integer> {
 
 	@Autowired
-	public TerminacaoRest(TerminacaoRepositorio repositorio) {
-		super(repositorio);
+	public TerminacaoRest(TerminacaoServico servicoDeCrud) {
+		super(servicoDeCrud);
 	}
 	
 }

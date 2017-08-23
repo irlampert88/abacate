@@ -1,6 +1,6 @@
 package com.univates.tcc.abacate.dominio.servicos;
 
-public interface FooService {
+import com.univates.tcc.abacate.dominio.entidades.Foo;
 
-	public void doSomething();
+public interface FooService extends ServicoDeCrud<Foo, Long> {
 }

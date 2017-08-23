@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.univates.tcc.abacate.dominio.entidades.Foo;
-import com.univates.tcc.abacate.dominio.repositorios.FooRepositorio;
+import com.univates.tcc.abacate.dominio.servicos.FooService;
 
 @RestController
 @RequestMapping("/foo")
@@ -14,8 +14,8 @@ import com.univates.tcc.abacate.dominio.repositorios.FooRepositorio;
 public class FooResource extends CrudAbstratoRest<Foo, Long> {
 
 	@Autowired
-	public FooResource(FooRepositorio repository) {
-		super(repository);
+	public FooResource(FooService servicoDeCrud) {
+		super(servicoDeCrud);
 	}
 	
 }

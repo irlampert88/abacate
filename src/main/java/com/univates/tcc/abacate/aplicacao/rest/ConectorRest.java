@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.univates.tcc.abacate.dominio.entidades.Conector;
-import com.univates.tcc.abacate.dominio.repositorios.ConectorRepositorio;
+import com.univates.tcc.abacate.dominio.servicos.ConectorServico;
 
 @RestController
 @RequestMapping("/conectores")
@@ -14,8 +14,8 @@ import com.univates.tcc.abacate.dominio.repositorios.ConectorRepositorio;
 public class ConectorRest extends CrudAbstratoRest<Conector, Integer> {
 
 	@Autowired
-	public ConectorRest(ConectorRepositorio repositorio) {
-		super(repositorio);
+	public ConectorRest(ConectorServico servicoDeCrud) {
+		super(servicoDeCrud);
 	}
 	
 }

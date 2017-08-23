@@ -4,11 +4,11 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.univates.tcc.abacate.dominio.entidades.Foo;
-import com.univates.tcc.abacate.integracao.repositorios.agregadores.RepositorioDeCrudAbstrato;
+import com.univates.tcc.abacate.integracao.repositorios.agregadores.RepositorioDeCrud;
 
 @Repository
 @Transactional
 public interface FooRepositorio 
-	extends RepositorioDeCrudAbstrato<Foo, Long> {
+	extends RepositorioDeCrud<Foo, Long> {
 
 }

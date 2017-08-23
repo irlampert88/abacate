@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.univates.tcc.abacate.dominio.entidades.TipoRack;
-import com.univates.tcc.abacate.dominio.repositorios.TipoRackRepositorio;
+import com.univates.tcc.abacate.dominio.servicos.TipoRackServico;
 
 @RestController
 @RequestMapping("/tipos_racks")
@@ -14,8 +14,8 @@ import com.univates.tcc.abacate.dominio.repositorios.TipoRackRepositorio;
 public class TipoRackRest extends CrudAbstratoRest<TipoRack, Integer> {
 
 	@Autowired
-	public TipoRackRest(TipoRackRepositorio repositorio) {
-		super(repositorio);
+	public TipoRackRest(TipoRackServico servicoDeCrud) {
+		super(servicoDeCrud);
 	}
 	
 }
