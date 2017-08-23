@@ -5,8 +5,8 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import com.univates.tcc.abacate.aggregates.mock.data.CreateFoo;
-import com.univates.tcc.abacate.domain.entities.Foo;
-import com.univates.tcc.abacate.domain.helpers.ToStringGenerator;
+import com.univates.tcc.abacate.dominio.entidades.Foo;
+import com.univates.tcc.abacate.dominio.utilitarios.GeradorDeToStringParaEntidades;
 
 public class ToStringGeneratorTest {
 
@@ -19,7 +19,7 @@ public class ToStringGeneratorTest {
 	@Test
 	public void testToStringFromGenerator() throws Exception {
 		Foo example = CreateFoo.from(id, nick, document);
-		final String toStringGenerated = ToStringGenerator.generate(example);
+		final String toStringGenerated = GeradorDeToStringParaEntidades.gerar(example);
 		assertEquals(resultExpected, toStringGenerated);
 	}
 

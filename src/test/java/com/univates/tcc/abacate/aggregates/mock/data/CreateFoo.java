@@ -1,6 +1,6 @@
 package com.univates.tcc.abacate.aggregates.mock.data;
 
-import com.univates.tcc.abacate.domain.entities.Foo;
+import com.univates.tcc.abacate.dominio.entidades.Foo;
 
 public class CreateFoo {
 
