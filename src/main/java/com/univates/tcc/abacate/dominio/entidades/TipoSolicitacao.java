@@ -8,18 +8,18 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "conectores")
-public class Conector extends EntidadeAbstrata<Integer> {
+@Table(name = "tipos_solicitacoes")
+public class TipoSolicitacao extends EntidadeAbstrata<Integer> {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
-	@Column
-	private String servico;
 
+	@Column
+	private String tipo;
+	
 	@Override
 	public Integer getId() {
 		return this.id;
@@ -29,13 +29,13 @@ public class Conector extends EntidadeAbstrata<Integer> {
 	public void setId(Integer id) {
 		this.id = id;
 	}
+	
+	public String getTipo() {
+		return tipo;
+	}
+	
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
 
-	public String getServico() {
-		return servico;
-	}
-	
-	public void setServico(String servico) {
-		this.servico = servico;
-	}
-	
 }

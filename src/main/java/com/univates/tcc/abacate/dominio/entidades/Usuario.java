@@ -16,7 +16,7 @@ import com.univates.tcc.abacate.integracao.repositorios.conversores.ConversorDeL
 @Table(name = "usuarios")
 public class Usuario extends EntidadeAbstrata<Integer> {
 
-	private static final long serialVersionUID = -3471647191081637279L;
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,6 +1,5 @@
 package com.univates.tcc.abacate.dominio.entidades;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,8 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "marcas")
-public class Marca extends EntidadeAbstrata<Integer> {
+@Table(name = "responsaveis")
+public class Responsavel extends EntidadeAbstrata<Integer> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -17,25 +16,26 @@ public class Marca extends EntidadeAbstrata<Integer> {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Column
-	private String descricao;
-
+	private String nome;
+	
+	private String email;
+	
+	private Integer ramal;
+	
+	private String senha;
+	
+	private Integer ativo;
+	
 	@Override
 	public Integer getId() {
-		return this.id;
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public void setId(Integer id) {
-		this.id = id;
+		// TODO Auto-generated method stub
+		
 	}
-	
-	public String getDescricao() {
-		return descricao;
-	}
-	
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-	
+
 }

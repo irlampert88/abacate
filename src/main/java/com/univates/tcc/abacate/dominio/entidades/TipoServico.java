@@ -8,18 +8,18 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "marcas")
-public class Marca extends EntidadeAbstrata<Integer> {
+@Table(name = "tipos_servicos")
+public class TipoServico extends EntidadeAbstrata<Integer> {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
-	@Column
-	private String descricao;
 
+	@Column
+	private String servico;
+	
 	@Override
 	public Integer getId() {
 		return this.id;
@@ -30,12 +30,12 @@ public class Marca extends EntidadeAbstrata<Integer> {
 		this.id = id;
 	}
 	
-	public String getDescricao() {
-		return descricao;
+	public String getServico() {
+		return servico;
 	}
 	
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setServico(String servico) {
+		this.servico = servico;
 	}
 	
 }
