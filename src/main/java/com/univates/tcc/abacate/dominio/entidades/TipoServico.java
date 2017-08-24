@@ -18,7 +18,7 @@ public class TipoServico extends EntidadeAbstrata<Integer> {
 	private Integer id;
 
 	@Column
-	private String servico;
+	private String tipo;
 	
 	@Override
 	public Integer getId() {
@@ -30,12 +30,12 @@ public class TipoServico extends EntidadeAbstrata<Integer> {
 		this.id = id;
 	}
 	
-	public String getServico() {
-		return servico;
+	public String getTipo() {
+		return tipo;
 	}
 	
-	public void setServico(String servico) {
-		this.servico = servico;
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 	
 }
