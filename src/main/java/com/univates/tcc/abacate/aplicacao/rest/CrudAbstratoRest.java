@@ -35,9 +35,9 @@ abstract class CrudAbstratoRest<ENTITY extends EntidadeAbstrata<ID>, ID extends 
 	}	
 
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
-	public final ResponseEntity<ENTITY> delete(@PathVariable("id") ID id){
+	public final ResponseEntity<ID> delete(@PathVariable("id") ID id){
 		servicoDeCrud.deletar(id);
-		return new ResponseEntity<ENTITY>(HttpStatus.OK);
+		return new ResponseEntity<ID>(id, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/{id}", method=RequestMethod.GET)
