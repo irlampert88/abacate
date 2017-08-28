@@ -23,11 +23,11 @@ public class Equipamento extends EntidadeAbstrata<Integer> {
 	@Column
 	private String descricao;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "marca_id", nullable = false)
 	private Marca marca;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "tipo_equipamento_id", nullable = false)
 	private TipoEquipamento tipoDoEquipamento;
 	
