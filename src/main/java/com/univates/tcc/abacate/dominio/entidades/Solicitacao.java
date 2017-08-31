@@ -39,7 +39,7 @@ public class Solicitacao extends EntidadeAbstrata<Integer> {
 	
 	@ManyToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "responsavel_fechamento_id", nullable = false)
-	private Responsavel responsavelFechamento;
+	private Usuario responsavelFechamento;
 	
 	@Column
 	private Integer fechado;
@@ -89,11 +89,11 @@ public class Solicitacao extends EntidadeAbstrata<Integer> {
 		this.fechamento = fechamento;
 	}
 
-	public Responsavel getResponsavelFechamento() {
+	public Usuario getResponsavelFechamento() {
 		return responsavelFechamento;
 	}
 
-	public void setResponsavelFechamento(Responsavel responsavelFechamento) {
+	public void setResponsavelFechamento(Usuario responsavelFechamento) {
 		this.responsavelFechamento = responsavelFechamento;
 	}
 
