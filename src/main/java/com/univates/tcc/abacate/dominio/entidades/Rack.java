@@ -11,7 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -66,11 +66,11 @@ public class Rack extends EntidadeAbstrata<Integer> {
 	@JoinColumn(name = "tipo_rack_id", nullable = false)
 	private TipoRack tipoRack;
 	
-//	@OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
-//	@JoinTable(name = "equipamentos_do_rack",
-//			   joinColumns = { @JoinColumn(name = "equipamento_id") },
-//			   inverseJoinColumns = { @JoinColumn(name = "ELECTOR_ID") } )
-//	private Set<Equipamento> equipamentosDoRack;
+	@OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+	@JoinTable(name = "equipamentos_do_rack",
+			   joinColumns = { @JoinColumn(name = "equipamento_id") },
+			   inverseJoinColumns = { @JoinColumn(name = "rack_id") } )
+	private Set<Equipamento> equipamentosDoRack;
 
 	@Override
 	public Integer getId() {
@@ -176,6 +176,13 @@ public class Rack extends EntidadeAbstrata<Integer> {
 
 	public void setTipoRack(TipoRack tipoRack) {
 		this.tipoRack = tipoRack;
+	}
+	
+	public Set<Equipamento> getEquipamentosDoRack() {
+		return equipamentosDoRack;
+	}
+	public void setEquipamentosDoRack(Set<Equipamento> equipamentosDoRack) {
+		this.equipamentosDoRack = equipamentosDoRack;
 	}
 	
 }
