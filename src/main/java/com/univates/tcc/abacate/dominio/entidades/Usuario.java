@@ -16,7 +16,6 @@ import com.univates.tcc.abacate.integracao.repositorios.ouvintes.OuvinteRegistro
 
 @Entity
 @Table(name = "usuarios")
-@EntityListeners(OuvinteRegistroDeLog.class)
 public class Usuario extends EntidadeAbstrata<Integer> {
 
 	private static final long serialVersionUID = 1L;
