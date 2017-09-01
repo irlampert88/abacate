@@ -25,9 +25,22 @@ public class Inicializador implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public static void main(String[] args) {
-        ConfigurableApplicationContext runnable = SpringApplication.run(Inicializador.class, args);
+		new Inicializador(args);
+	}
+	
+	public Inicializador() {
+		// NADA
+	}
 
-        AutowireHelper.context = runnable;
+	private Inicializador(String[] args) {
+		ConfigurableApplicationContext runnable = SpringApplication.run(Inicializador.class, args);
+		
+		AutowireHelper.context = runnable;
+		popularBancoComMassaDeDados();
+	}
+	
+	private void popularBancoComMassaDeDados() {
+		AutowireHelper.context.getBean(RegistrosPadroesParaBancoDeDados.class).popularBancoDeDados();
 	}
     
 }

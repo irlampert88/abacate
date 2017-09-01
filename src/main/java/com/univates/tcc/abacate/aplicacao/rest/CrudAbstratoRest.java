@@ -11,9 +11,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.univates.tcc.abacate.aplicacao.rest.autorizacao.RequerAutenticacao;
 import com.univates.tcc.abacate.dominio.entidades.EntidadeAbstrata;
 import com.univates.tcc.abacate.dominio.servicos.ServicoDeCrud;
 
@@ -26,32 +28,37 @@ abstract class CrudAbstratoRest<ENTIDADE extends EntidadeAbstrata<ID>, ID extend
 		this.servicoDeCrud = servicoDeCrud;
 	}
 	
+	@RequerAutenticacao
 	@RequestMapping(method=RequestMethod.POST) 
 	public final ResponseEntity<ENTIDADE> save(@RequestBody ENTIDADE entity){
 		entity = servicoDeCrud.inserir(entity);		
 		return new ResponseEntity<ENTIDADE>(entity, HttpStatus.OK);
 	}	
 	
+	@RequerAutenticacao
 	@RequestMapping(method=RequestMethod.PATCH)
 	public final ResponseEntity<ENTIDADE> update(@RequestBody ENTIDADE entity){
 		entity = servicoDeCrud.alterar(entity);
 		return new ResponseEntity<ENTIDADE>(entity, HttpStatus.OK);
 	}	
 
+	@RequerAutenticacao
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
 	public final ResponseEntity<ID> delete(@PathVariable("id") ID id){
 		servicoDeCrud.deletar(id);
 		return new ResponseEntity<ID>(id, HttpStatus.OK);
 	}
 	
+	@RequerAutenticacao
 	@RequestMapping(value = "/{id}", method=RequestMethod.GET)
 	public final ResponseEntity<ENTIDADE> findById(@PathVariable ID id){
 		final ENTIDADE found = servicoDeCrud.buscarPorId(id);
 		return new ResponseEntity<ENTIDADE>(found, HttpStatus.OK);
 	}
 	
+	@RequerAutenticacao
 	@RequestMapping(method=RequestMethod.GET)
-	public final ResponseEntity<Iterable<ENTIDADE>> findAll(){
+	public final ResponseEntity<Iterable<ENTIDADE>> findAll(@RequestHeader(value="Autorization") String authorization){
 		final Iterable<ENTIDADE> founds = servicoDeCrud.buscarTodos();
 		return new ResponseEntity<Iterable<ENTIDADE>>(founds, HttpStatus.OK);		
 	}

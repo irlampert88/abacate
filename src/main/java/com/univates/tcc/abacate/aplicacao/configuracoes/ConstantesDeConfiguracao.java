@@ -26,5 +26,8 @@ public interface ConstantesDeConfiguracao {
 		public final String ENTIDADES = DOMINIO + ".entidades";
 	}
 	
+	public interface Autenticacao {
+		public final String TOKEN = "Authorization";
+	}
 	
 }

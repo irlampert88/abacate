@@ -19,7 +19,7 @@ public final class RegistroLogServicoImpl
 		implements RegistroLogServico {
 
 	@Autowired
-	private UsuarioRepositorio repositorioTEMPORARIO;
+	private UsuarioRepositorio repositorioTEMPORARIO; // TODO REMOVER ISSO!!!!
 	
 	private JsonApi jsonApi;
 
@@ -31,9 +31,20 @@ public final class RegistroLogServicoImpl
 
 	@Override
 	public <E extends EntidadeAbstrata<?>> void registrarLog(E entidade, Acoes acao) {
+		if (naoPossuiUsuario() && registroDeLogParaUsuario(entidade))
+			return;
+		
 		RegistroLog novoLog = new ConstrutorDeRegistroLog(jsonApi)
 				.paraUsuarioLogado(buscaUsuarioLogado()).paraEntidade(entidade).daAcao(acao).criar();
 		inserir(novoLog);
+	}
+
+	private <E extends EntidadeAbstrata<?>> boolean registroDeLogParaUsuario(E entidade) {
+		return entidade instanceof Usuario;
+	}
+
+	private boolean naoPossuiUsuario() {
+		return repositorioTEMPORARIO.findAll().isEmpty();
 	}
 
 	private Usuario buscaUsuarioLogado() {
