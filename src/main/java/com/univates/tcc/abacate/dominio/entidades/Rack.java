@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,8 +17,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.univates.tcc.abacate.integracao.repositorios.ouvintes.OuvinteRegistroDeLog;
+
 @Entity
 @Table(name = "racks")
+@EntityListeners(OuvinteRegistroDeLog.class)
 public class Rack extends EntidadeAbstrata<Integer> {
 
 	private static final long serialVersionUID = 1L;

@@ -23,29 +23,29 @@ class ServicoDeCrudImpl<R extends RepositorioDeCrud<E, ID>, E extends EntidadeAb
 	
 	@Override
 	@Transactional(readOnly = false)
-	public E inserir(E novaEntidade) {
+	public final E inserir(E novaEntidade) {
 		return repositorio.save(novaEntidade);
 	}
 
 	@Override
 	@Transactional(readOnly = false)
-	public E alterar(E entidade) {
+	public final E alterar(E entidade) {
 		return repositorio.save(entidade);
 	}
 
 	@Override
 	@Transactional(readOnly = false)
-	public void deletar(ID idDaEntidade) {
+	public final void deletar(ID idDaEntidade) {
 		repositorio.delete(idDaEntidade);
 	}
 
 	@Override
-	public E buscarPorId(ID idDaEntidade) {
+	public final E buscarPorId(ID idDaEntidade) {
 		return repositorio.findOne(idDaEntidade);
 	}
 
 	@Override
-	public Collection<E> buscarTodos() {
+	public final Collection<E> buscarTodos() {
 		return repositorio.findAll();
 	}
 

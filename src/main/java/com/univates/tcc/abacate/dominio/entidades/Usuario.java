@@ -5,15 +5,18 @@ import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.univates.tcc.abacate.integracao.repositorios.conversores.ConversorDeLocalDateTime;
+import com.univates.tcc.abacate.integracao.repositorios.ouvintes.OuvinteRegistroDeLog;
 
 @Entity
 @Table(name = "usuarios")
+@EntityListeners(OuvinteRegistroDeLog.class)
 public class Usuario extends EntidadeAbstrata<Integer> {
 
 	private static final long serialVersionUID = 1L;

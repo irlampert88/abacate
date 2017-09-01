@@ -5,6 +5,7 @@ import java.sql.Blob;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,8 +13,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.univates.tcc.abacate.integracao.repositorios.ouvintes.OuvinteRegistroDeLog;
+
 @Entity
 @Table(name = "locais")
+@EntityListeners(OuvinteRegistroDeLog.class)
 public class Local extends EntidadeAbstrata<Integer> {
 
 	private static final long serialVersionUID = 1L;
@@ -26,10 +30,10 @@ public class Local extends EntidadeAbstrata<Integer> {
 	private String local;
 	
 	@Column
-	private String predio;
+	private Integer predio;
 	
 	@Column
-	private String andar;
+	private Integer andar;
 	
 	@Column
 	private String observacao;
@@ -59,19 +63,19 @@ public class Local extends EntidadeAbstrata<Integer> {
 		this.local = local;
 	}
 
-	public String getPredio() {
+	public Integer getPredio() {
 		return predio;
 	}
 
-	public void setPredio(String predio) {
+	public void setPredio(Integer predio) {
 		this.predio = predio;
 	}
 
-	public String getAndar() {
+	public Integer getAndar() {
 		return andar;
 	}
 
-	public void setAndar(String andar) {
+	public void setAndar(Integer andar) {
 		this.andar = andar;
 	}
 

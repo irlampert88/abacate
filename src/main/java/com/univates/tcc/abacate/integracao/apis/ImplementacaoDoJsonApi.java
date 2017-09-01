@@ -1,8 +1,11 @@
 package com.univates.tcc.abacate.integracao.apis;
 
+import org.springframework.stereotype.Component;
+
 import com.google.gson.Gson;
 import com.univates.tcc.abacate.aplicacao.apis.JsonApi;
 
+@Component
 public final class ImplementacaoDoJsonApi 
 	implements JsonApi {
 
