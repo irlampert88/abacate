@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.univates.tcc.abacate.dominio.entidades.Usuario;
+import com.univates.tcc.abacate.dominio.excecao.AutenticacaoRequerida;
 import com.univates.tcc.abacate.dominio.repositorios.UsuarioRepositorio;
 import com.univates.tcc.abacate.dominio.servicos.UsuarioServico;
 
@@ -26,27 +27,39 @@ public final class UsuarioServicoImpl
 	@Override
 	public void checarToken(String token) {
 		// TODO: Mudar para consultar na Sessão
-		if (StringUtils.isBlank(token))
-			throw new IllegalArgumentException("Necessário autenticar na aplicação");
-		
-		String[] usuarioESenha = new String(Base64.getDecoder().decode(token)).split(":");
-		
-		if (usuarioESenha.length != 2) 
-			throw new IllegalArgumentException("Token para autenticação é inválido.");
+		String[] usuarioESenha = extrairUsuarioESenhaDoToken(token);
 		
 		String usuario = usuarioESenha[0];
 		String senha = usuarioESenha[1];
 		
 		Usuario usuarioEncontrado = repositorio.procuraUsuarioParaAutenticar(usuario, senha);
-		if (usuarioEncontrado == null) {
-			throw new IllegalArgumentException("Usuário inválido");
-		}
+		if (usuarioEncontrado == null)
+			throw new AutenticacaoRequerida("Usuário inválido.");
+	}
+
+	private String[] extrairUsuarioESenhaDoToken(String token) {
+		if (StringUtils.isBlank(token))
+			throw new AutenticacaoRequerida("Token para autenticação é inválido.");
+		
+		// TODO Remover o Basic
+		String[] usuarioESenha = new String(Base64.getDecoder().decode(token.replace("Basic ", ""))).split(":");
+		
+		if (usuarioESenha.length != 2) 
+			throw new AutenticacaoRequerida("Token para autenticação é inválido.");
+		
+		return usuarioESenha;
 	}
 
 	@Override
 	public Usuario autenticar(Usuario usuario) {
+		if (StringUtils.isBlank(usuario.getUsuario()) || StringUtils.isBlank(usuario.getSenha()))
+			throw new AutenticacaoRequerida("Usuário e Senha devem ser informados para autenticação.");
 		
-		return null;
+		Usuario usuarioEncontrado = repositorio.procuraUsuarioParaAutenticar(usuario.getUsuario(), usuario.getSenha());
+		if (usuarioEncontrado == null)
+			throw new AutenticacaoRequerida("Usuário inválido para autenticação no Abacate.");
+		
+		return usuarioEncontrado;
 	}
 	
 }
