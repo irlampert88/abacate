@@ -1,6 +1,6 @@
 package com.univates.tcc.abacate.dominio.entidades;
 
-import java.sql.Blob;
+import java.io.File;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -50,8 +50,8 @@ public class Ponto extends EntidadeAbstrata<Integer> {
 	@Column
 	private Integer mapaY;
 	
-	@Column
-	private Blob foto;
+	@Column(length = 4000)
+	private File foto;
 	
 	@ManyToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "tipo_servico_id", nullable = false)
@@ -147,11 +147,11 @@ public class Ponto extends EntidadeAbstrata<Integer> {
 		this.mapaY = mapaY;
 	}
 
-	public Blob getFoto() {
+	public File getFoto() {
 		return foto;
 	}
 
-	public void setFoto(Blob foto) {
+	public void setFoto(File foto) {
 		this.foto = foto;
 	}
 

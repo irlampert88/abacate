@@ -1,6 +1,6 @@
 package com.univates.tcc.abacate.dominio.entidades;
 
-import java.sql.Blob;
+import java.io.File;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -51,8 +51,8 @@ public class Rack extends EntidadeAbstrata<Integer> {
 	@Column
 	private Integer profundidade;
 
-	@Column
-	private Blob foto;
+	@Column(length = 4000)
+	private File foto;
 	
 	@ManyToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "local_id", nullable = false)
@@ -142,11 +142,11 @@ public class Rack extends EntidadeAbstrata<Integer> {
 		this.profundidade = profundidade;
 	}
 
-	public Blob getFoto() {
+	public File getFoto() {
 		return foto;
 	}
 
-	public void setFoto(Blob foto) {
+	public void setFoto(File foto) {
 		this.foto = foto;
 	}
 

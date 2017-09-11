@@ -17,7 +17,8 @@ import com.univates.tcc.abacate.integracao.repositorios.conversores.ConversorDeL
 
 @Entity
 @Table(name = "registros_logs")
-public class RegistroLog extends EntidadeAbstrata<Integer> {
+public class RegistroLog 
+	extends EntidadeAbstrata<Integer> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -35,7 +36,7 @@ public class RegistroLog extends EntidadeAbstrata<Integer> {
 	@Column
 	private String acao;
 	
-	@Column
+	@Column(length=2000)
 	private String dado;
 	
 	@ManyToOne(cascade = CascadeType.REFRESH)

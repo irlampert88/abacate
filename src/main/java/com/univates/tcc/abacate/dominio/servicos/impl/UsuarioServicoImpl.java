@@ -1,5 +1,6 @@
 package com.univates.tcc.abacate.dominio.servicos.impl;
 
+import java.time.LocalDateTime;
 import java.util.Base64;
 
 import org.apache.commons.lang.StringUtils;
@@ -59,7 +60,14 @@ public final class UsuarioServicoImpl
 		if (usuarioEncontrado == null)
 			throw new AutenticacaoRequerida("Usuário inválido para autenticação no Abacate.");
 		
+		atualizaUltimoAcesso(usuarioEncontrado);
+		
 		return usuarioEncontrado;
+	}
+
+	private void atualizaUltimoAcesso(Usuario usuarioEncontrado) {
+		usuarioEncontrado.setUltimoAcesso(LocalDateTime.now());
+		alterar(usuarioEncontrado);
 	}
 	
 }

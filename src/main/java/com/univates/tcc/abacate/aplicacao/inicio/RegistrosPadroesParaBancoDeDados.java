@@ -1,35 +1,68 @@
 package com.univates.tcc.abacate.aplicacao.inicio;
 
-import java.time.LocalDateTime;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.univates.tcc.abacate.dominio.entidades.Usuario;
-import com.univates.tcc.abacate.dominio.servicos.UsuarioServico;
+import com.univates.tcc.abacate.aplicacao.inicio.registros.FabricaDeCalbingPadroes;
+import com.univates.tcc.abacate.aplicacao.inicio.registros.FabricaDeLocaisPadroes;
+import com.univates.tcc.abacate.aplicacao.inicio.registros.FabricaDeMarcasPadroes;
+import com.univates.tcc.abacate.aplicacao.inicio.registros.FabricaDeResponsaveisPadroes;
+import com.univates.tcc.abacate.aplicacao.inicio.registros.FabricaDeSituacoesPadroes;
+import com.univates.tcc.abacate.aplicacao.inicio.registros.FabricaDeTerminacoesPadroes;
+import com.univates.tcc.abacate.aplicacao.inicio.registros.FabricaDeTipoDeEquipamentosPadroes;
+import com.univates.tcc.abacate.aplicacao.inicio.registros.FabricaDeTipoDeRacksPadroes;
+import com.univates.tcc.abacate.aplicacao.inicio.registros.FabricaDeTipoDeServicosPadroes;
+import com.univates.tcc.abacate.aplicacao.inicio.registros.FabricaDeTipoDeSolicitacoesPadroes;
+import com.univates.tcc.abacate.aplicacao.inicio.registros.FabricaDeUsuariosPadroes;
 
 @Component
 public class RegistrosPadroesParaBancoDeDados {
 
 	@Autowired
-	private UsuarioServico usuarioServico;
+	private FabricaDeUsuariosPadroes fabricaDeUsuarios;
+	
+	@Autowired
+	private FabricaDeCalbingPadroes fabricaDeCalbing;
+	
+	@Autowired
+	private FabricaDeResponsaveisPadroes fabricaDeResponsaveis;
+	
+	@Autowired
+	private FabricaDeMarcasPadroes fabricaDeMarcas;
+	
+	@Autowired
+	private FabricaDeTerminacoesPadroes fabricaDeTerminacoes;
+	
+	@Autowired
+	private FabricaDeTipoDeEquipamentosPadroes fabricaDeTipoDeEquipamentos;
+	
+	@Autowired
+	private FabricaDeTipoDeRacksPadroes fabricaDeTipoDeRacks;
+	
+	@Autowired
+	private FabricaDeLocaisPadroes fabricaDeLocais;
+	
+	@Autowired
+	private FabricaDeSituacoesPadroes fabricaDeSituacoes;
+	
+	@Autowired
+	private FabricaDeTipoDeSolicitacoesPadroes fabricaDeTipoDeSolicitacoes;
+	
+	@Autowired
+	private FabricaDeTipoDeServicosPadroes fabricaDeTipoDeServicos;
 	
 	public void popularBancoDeDados() {
-		popularComUsuarios();
+		fabricaDeUsuarios.criarRegistrosPadroes();
+		fabricaDeResponsaveis.criarRegistrosPadroes();
+		fabricaDeCalbing.criarRegistrosPadroes();
+		fabricaDeLocais.criarRegistrosPadroes();
+		fabricaDeMarcas.criarRegistrosPadroes();
+		fabricaDeTerminacoes.criarRegistrosPadroes();
+		fabricaDeTipoDeEquipamentos.criarRegistrosPadroes();
+		fabricaDeTipoDeRacks.criarRegistrosPadroes();
+		fabricaDeSituacoes.criarRegistrosPadroes();
+		fabricaDeTipoDeSolicitacoes.criarRegistrosPadroes();
+		fabricaDeTipoDeServicos.criarRegistrosPadroes();
 	}
 
-	private void popularComUsuarios() {
-		if (usuarioServico.buscarTodos().isEmpty()) {
-			Usuario usuarioPadrao = new Usuario();
-			usuarioPadrao.setNome("Usuário Abacate");
-			usuarioPadrao.setAtivo(1);
-			usuarioPadrao.setEmail("admin@admi.admin");
-			usuarioPadrao.setSenha("admin");
-			usuarioPadrao.setUsuario("admin");
-			usuarioPadrao.setUltimoAcesso(LocalDateTime.now());
-			
-			usuarioServico.inserir(usuarioPadrao);
-		}
-	}
-	
 }

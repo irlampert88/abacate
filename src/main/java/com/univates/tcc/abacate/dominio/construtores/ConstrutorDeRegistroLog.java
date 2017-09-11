@@ -1,12 +1,11 @@
 package com.univates.tcc.abacate.dominio.construtores;
 
+import java.io.File;
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.time.LocalDateTime;
 
 import javax.persistence.Table;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import com.univates.tcc.abacate.aplicacao.apis.JsonApi;
 import com.univates.tcc.abacate.dominio.agregadores.Acoes;
@@ -28,11 +27,30 @@ public class ConstrutorDeRegistroLog implements Serializable {
 	}
 	
 	public <E extends EntidadeAbstrata<?>> ConstrutorDeRegistroLog paraEntidade(E entidade) {
-		log.setDado(jsonApi.paraJson(entidade));
+		log.setDado(jsonDaEntidade(entidade));
 		log.setTabela(buscaNomeDaTabela(entidade));
 		return this;
 	}
+
+	private <E extends EntidadeAbstrata<?>> String jsonDaEntidade(E entidade) {
+		Object cloneDaEntidade = entidade.clone();
+		removerArquivosDaEntidade(cloneDaEntidade);
+		return jsonApi.paraJson(cloneDaEntidade);
+	}
 	
+	private void removerArquivosDaEntidade(Object cloneDaEntidade) {
+		for (Field campo : cloneDaEntidade.getClass().getDeclaredFields()) {
+			if (campo.getType().equals(File.class)) {
+				campo.setAccessible(true);
+				try {
+					campo.set(cloneDaEntidade, null);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+ 		}
+	}
+
 	private <E extends EntidadeAbstrata<?>> String buscaNomeDaTabela(E entidade) {
 		Table anotacao = entidade.getClass().getAnnotation(Table.class);
 		return anotacao.name();
