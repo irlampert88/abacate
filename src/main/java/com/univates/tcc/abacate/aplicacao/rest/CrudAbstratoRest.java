@@ -5,6 +5,7 @@ import static com.univates.tcc.abacate.dominio.utilitarios.IdentificadorDeGeneri
 import static com.univates.tcc.abacate.dominio.utilitarios.InstanciadorDeObjetos.criaInstancia;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -19,6 +20,7 @@ import com.univates.tcc.abacate.dominio.entidades.EntidadeAbstrata;
 import com.univates.tcc.abacate.dominio.servicos.ServicoDeCrud;
 
 @RequestMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+@SuppressWarnings("all")
 abstract class CrudAbstratoRest<ENTIDADE extends EntidadeAbstrata<ID>, ID extends Serializable> {
 
 	private final ServicoDeCrud<ENTIDADE, ID> servicoDeCrud;
@@ -66,8 +68,21 @@ abstract class CrudAbstratoRest<ENTIDADE extends EntidadeAbstrata<ID>, ID extend
 	public final ResponseEntity<ENTIDADE> exibirEstrutura(){
 		final Class<?> classeDaEntidade = identificaClasseDeUmGeneric(getClass(), PRIMEIRO_GENERIC);
 		final ENTIDADE instanciaVaziaDaEntidade = (ENTIDADE) criaInstancia(classeDaEntidade);
-	
 		return new ResponseEntity<ENTIDADE>(instanciaVaziaDaEntidade, HttpStatus.OK);
+	}
+	
+	@RequerAutenticacao
+	@RequestMapping(value = "/pesquisarUmPeloExemplo", method=RequestMethod.POST)
+	public final ResponseEntity<ENTIDADE> pesquisarUmPeloExemplo(@RequestBody ENTIDADE entity){
+		final ENTIDADE entidadeEncontrada = servicoDeCrud.buscarUmPeloExemplo(entity);
+		return new ResponseEntity<ENTIDADE>(entidadeEncontrada, HttpStatus.OK);
+	}
+	
+	@RequerAutenticacao
+	@RequestMapping(value = "/pesquisarPeloExemplo", method=RequestMethod.POST)
+	public final ResponseEntity<Iterable<ENTIDADE>> pesquisarPeloExemplo(@RequestBody ENTIDADE entity){
+		final Collection<ENTIDADE> entidadesEncontradas = servicoDeCrud.buscarPeloExemplo(entity);
+		return new ResponseEntity<Iterable<ENTIDADE>>(entidadesEncontradas, HttpStatus.OK);
 	}
 	
 }

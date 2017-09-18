@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.univates.tcc.abacate.dominio.entidades.Cabling;
 import com.univates.tcc.abacate.dominio.repositorios.CablingRepositorio;
 import com.univates.tcc.abacate.dominio.servicos.CablingServico;
+import com.univates.tcc.abacate.integracao.repositorios.agregadores.ConsultasPeloExemplo;
 
 @Service
 public final class CablingServicoImpl 
@@ -13,7 +14,7 @@ public final class CablingServicoImpl
 		implements CablingServico {
 
 	@Autowired
-	public CablingServicoImpl(CablingRepositorio repositorio) {
-		super(repositorio);
+	public CablingServicoImpl(CablingRepositorio repositorio, ConsultasPeloExemplo consultaPeloExemplo) {
+		super(repositorio, consultaPeloExemplo);
 	}
 }

@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.univates.tcc.abacate.dominio.entidades.EntidadeAbstrata;
 import com.univates.tcc.abacate.dominio.servicos.ServicoDeCrud;
+import com.univates.tcc.abacate.integracao.repositorios.agregadores.ConsultasPeloExemplo;
 import com.univates.tcc.abacate.integracao.repositorios.agregadores.RepositorioDeCrud;
 
 @Service
@@ -17,8 +18,11 @@ class ServicoDeCrudImpl<R extends RepositorioDeCrud<E, ID>, E extends EntidadeAb
 
 	private final R repositorio;
 	
-	public ServicoDeCrudImpl(R repositorio) {
+	private ConsultasPeloExemplo consultaPeloExemplo;
+	
+	public ServicoDeCrudImpl(R repositorio, ConsultasPeloExemplo consultaPeloExemplo) {
 		this.repositorio = repositorio;
+		this.consultaPeloExemplo = consultaPeloExemplo;
 	}
 	
 	@Override
@@ -47,6 +51,16 @@ class ServicoDeCrudImpl<R extends RepositorioDeCrud<E, ID>, E extends EntidadeAb
 	@Override
 	public final Collection<E> buscarTodos() {
 		return repositorio.findAll();
+	}
+	
+	@Override
+	public final E buscarUmPeloExemplo(E exampleEntity) {
+		return consultaPeloExemplo.buscarUmPeloExemplo(exampleEntity);
+	}
+	
+	@Override
+	public final Collection<E> buscarPeloExemplo(E exampleEntity) {
+		return consultaPeloExemplo.buscarPeloExemplo(exampleEntity);
 	}
 
 }

@@ -14,6 +14,7 @@ import com.univates.tcc.abacate.dominio.entidades.Usuario;
 import com.univates.tcc.abacate.dominio.repositorios.RegistroLogRepositorio;
 import com.univates.tcc.abacate.dominio.repositorios.UsuarioRepositorio;
 import com.univates.tcc.abacate.dominio.servicos.RegistroLogServico;
+import com.univates.tcc.abacate.integracao.repositorios.agregadores.ConsultasPeloExemplo;
 
 @Service
 @Transactional
@@ -27,8 +28,8 @@ public final class RegistroLogServicoImpl
 	private JsonApi jsonApi;
 
 	@Autowired
-	public RegistroLogServicoImpl(RegistroLogRepositorio repositorio, JsonApi jsonApi) {
-		super(repositorio);
+	public RegistroLogServicoImpl(RegistroLogRepositorio repositorio, JsonApi jsonApi, ConsultasPeloExemplo consultaPeloExemplo) {
+		super(repositorio, consultaPeloExemplo);
 		this.jsonApi = jsonApi;
 	}
 

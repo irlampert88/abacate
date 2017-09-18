@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.univates.tcc.abacate.dominio.entidades.TipoRack;
 import com.univates.tcc.abacate.dominio.repositorios.TipoRackRepositorio;
 import com.univates.tcc.abacate.dominio.servicos.TipoRackServico;
+import com.univates.tcc.abacate.integracao.repositorios.agregadores.ConsultasPeloExemplo;
 
 @Service
 public final class TipoRackServicoImpl 
@@ -13,7 +14,7 @@ public final class TipoRackServicoImpl
 		implements TipoRackServico {
 
 	@Autowired
-	public TipoRackServicoImpl(TipoRackRepositorio repositorio) {
-		super(repositorio);
+	public TipoRackServicoImpl(TipoRackRepositorio repositorio, ConsultasPeloExemplo consultaPeloExemplo) {
+		super(repositorio, consultaPeloExemplo);
 	}
 }

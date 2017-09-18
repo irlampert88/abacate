@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.univates.tcc.abacate.dominio.entidades.TipoEquipamento;
 import com.univates.tcc.abacate.dominio.repositorios.TipoEquipamentoRepositorio;
 import com.univates.tcc.abacate.dominio.servicos.TipoEquipamentoServico;
+import com.univates.tcc.abacate.integracao.repositorios.agregadores.ConsultasPeloExemplo;
 
 @Service
 public final class TipoEquipamentoServicoImpl 
@@ -13,7 +14,7 @@ public final class TipoEquipamentoServicoImpl
 		implements TipoEquipamentoServico {
 
 	@Autowired
-	public TipoEquipamentoServicoImpl(TipoEquipamentoRepositorio repositorio) {
-		super(repositorio);
+	public TipoEquipamentoServicoImpl(TipoEquipamentoRepositorio repositorio, ConsultasPeloExemplo consultaPeloExemplo) {
+		super(repositorio, consultaPeloExemplo);
 	}
 }

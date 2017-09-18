@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.univates.tcc.abacate.dominio.entidades.Local;
 import com.univates.tcc.abacate.dominio.repositorios.LocalRepositorio;
 import com.univates.tcc.abacate.dominio.servicos.LocalServico;
+import com.univates.tcc.abacate.integracao.repositorios.agregadores.ConsultasPeloExemplo;
 
 @Service
 public final class LocalServicoImpl 
@@ -13,7 +14,7 @@ public final class LocalServicoImpl
 		implements LocalServico {
 
 	@Autowired
-	public LocalServicoImpl(LocalRepositorio repositorio) {
-		super(repositorio);
+	public LocalServicoImpl(LocalRepositorio repositorio, ConsultasPeloExemplo consultaPeloExemplo) {
+		super(repositorio, consultaPeloExemplo);
 	}
 }

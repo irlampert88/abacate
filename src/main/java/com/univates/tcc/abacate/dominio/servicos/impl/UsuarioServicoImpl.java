@@ -11,6 +11,7 @@ import com.univates.tcc.abacate.dominio.entidades.Usuario;
 import com.univates.tcc.abacate.dominio.excecao.AutenticacaoRequerida;
 import com.univates.tcc.abacate.dominio.repositorios.UsuarioRepositorio;
 import com.univates.tcc.abacate.dominio.servicos.UsuarioServico;
+import com.univates.tcc.abacate.integracao.repositorios.agregadores.ConsultasPeloExemplo;
 
 @Service
 public final class UsuarioServicoImpl 
@@ -20,8 +21,8 @@ public final class UsuarioServicoImpl
 	private UsuarioRepositorio repositorio;
 
 	@Autowired
-	public UsuarioServicoImpl(UsuarioRepositorio repositorio) {
-		super(repositorio);
+	public UsuarioServicoImpl(UsuarioRepositorio repositorio, ConsultasPeloExemplo consultaPeloExemplo) {
+		super(repositorio, consultaPeloExemplo);
 		this.repositorio = repositorio;
 	}
 
@@ -42,8 +43,7 @@ public final class UsuarioServicoImpl
 		if (StringUtils.isBlank(token))
 			throw new AutenticacaoRequerida("Token para autenticação é inválido.");
 		
-		// TODO Remover o Basic
-		String[] usuarioESenha = new String(Base64.getDecoder().decode(token.replace("Basic ", ""))).split(":");
+		String[] usuarioESenha = new String(Base64.getDecoder().decode(token)).split(":");
 		
 		if (usuarioESenha.length != 2) 
 			throw new AutenticacaoRequerida("Token para autenticação é inválido.");

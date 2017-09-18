@@ -15,5 +15,7 @@ public interface ServicoDeCrud<E extends EntidadeAbstrata<ID>, ID extends Serial
 	public void deletar(ID idDaEntidade);
 	public E buscarPorId(ID idDaEntidade);
 	public Collection<E> buscarTodos();
-
+	public E buscarUmPeloExemplo(E exampleEntity);
+	public Collection<E> buscarPeloExemplo(E exampleEntity);
+	
 }
