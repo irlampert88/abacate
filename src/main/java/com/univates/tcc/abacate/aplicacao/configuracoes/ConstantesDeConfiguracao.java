@@ -27,7 +27,7 @@ public interface ConstantesDeConfiguracao {
 	}
 	
 	public interface Autenticacao {
-		public final String TOKEN = "Authorization";
+		public final String TOKEN = "Authorization"; // COLOCAR O H ANTES DE COMMITAR
 	}
 	
 }
