@@ -24,7 +24,7 @@ public abstract class EntidadeAbstrata<ID extends Serializable>
 	 * @see OptimisticLock
 	 */
     private Long version;
-	
+    
     @Version
 	protected final Long getVersion() {
 		return version;

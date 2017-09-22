@@ -1,11 +1,11 @@
 package com.univates.tcc.abacate.dominio.excecao;
 
-public class AutenticacaoRequerida 
+public class SemPermissao 
 	extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 
-	public AutenticacaoRequerida(String mensagemDeErro) {
+	public SemPermissao(String mensagemDeErro) {
 		super(mensagemDeErro);
 	}
 }

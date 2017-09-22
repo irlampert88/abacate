@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import com.univates.tcc.abacate.aplicacao.inicio.registros.FabricaDeCalbingPadroes;
 import com.univates.tcc.abacate.aplicacao.inicio.registros.FabricaDeLocaisPadroes;
 import com.univates.tcc.abacate.aplicacao.inicio.registros.FabricaDeMarcasPadroes;
+import com.univates.tcc.abacate.aplicacao.inicio.registros.FabricaDePermissoesPadroes;
 import com.univates.tcc.abacate.aplicacao.inicio.registros.FabricaDeResponsaveisPadroes;
 import com.univates.tcc.abacate.aplicacao.inicio.registros.FabricaDeSituacoesPadroes;
 import com.univates.tcc.abacate.aplicacao.inicio.registros.FabricaDeTerminacoesPadroes;
@@ -51,6 +52,9 @@ public class RegistrosPadroesParaBancoDeDados {
 	@Autowired
 	private FabricaDeTipoDeServicosPadroes fabricaDeTipoDeServicos;
 	
+	@Autowired
+	private FabricaDePermissoesPadroes fabricaDePermissoes;
+	
 	public void popularBancoDeDados() {
 		fabricaDeUsuarios.criarRegistrosPadroes();
 		fabricaDeResponsaveis.criarRegistrosPadroes();
@@ -63,6 +67,7 @@ public class RegistrosPadroesParaBancoDeDados {
 		fabricaDeSituacoes.criarRegistrosPadroes();
 		fabricaDeTipoDeSolicitacoes.criarRegistrosPadroes();
 		fabricaDeTipoDeServicos.criarRegistrosPadroes();
+		fabricaDePermissoes.criarRegistrosPadroes();
 	}
 
 }

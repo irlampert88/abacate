@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.univates.tcc.abacate.aplicacao.rest.autorizacao.RequerAutenticacao;
+import com.univates.tcc.abacate.aplicacao.rest.permissao.RequerPermissao;
+import com.univates.tcc.abacate.aplicacao.rest.permissao.TipoDePermissao;
 import com.univates.tcc.abacate.dominio.entidades.EntidadeAbstrata;
 import com.univates.tcc.abacate.dominio.servicos.ServicoDeCrud;
 
@@ -30,6 +32,7 @@ abstract class CrudAbstratoRest<ENTIDADE extends EntidadeAbstrata<ID>, ID extend
 	}
 	
 	@RequerAutenticacao
+	@RequerPermissao(tipoDePermissao = TipoDePermissao.INSERIR)
 	@RequestMapping(method=RequestMethod.POST) 
 	public final ResponseEntity<ENTIDADE> save(@RequestBody ENTIDADE entity){
 		entity = servicoDeCrud.inserir(entity);		
@@ -37,6 +40,7 @@ abstract class CrudAbstratoRest<ENTIDADE extends EntidadeAbstrata<ID>, ID extend
 	}	
 	
 	@RequerAutenticacao
+	@RequerPermissao(tipoDePermissao = TipoDePermissao.ALTERAR)
 	@RequestMapping(method=RequestMethod.PATCH)
 	public final ResponseEntity<ENTIDADE> update(@RequestBody ENTIDADE entity){
 		entity = servicoDeCrud.alterar(entity);
@@ -44,6 +48,7 @@ abstract class CrudAbstratoRest<ENTIDADE extends EntidadeAbstrata<ID>, ID extend
 	}	
 
 	@RequerAutenticacao
+	@RequerPermissao(tipoDePermissao = TipoDePermissao.DELETAR)
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
 	public final ResponseEntity<ID> delete(@PathVariable("id") ID id){
 		servicoDeCrud.deletar(id);
@@ -51,6 +56,7 @@ abstract class CrudAbstratoRest<ENTIDADE extends EntidadeAbstrata<ID>, ID extend
 	}
 	
 	@RequerAutenticacao
+	@RequerPermissao(tipoDePermissao = TipoDePermissao.CONSULTAR)
 	@RequestMapping(value = "/{id}", method=RequestMethod.GET)
 	public final ResponseEntity<ENTIDADE> findById(@PathVariable ID id){
 		final ENTIDADE found = servicoDeCrud.buscarPorId(id);
@@ -58,6 +64,7 @@ abstract class CrudAbstratoRest<ENTIDADE extends EntidadeAbstrata<ID>, ID extend
 	}
 	
 	@RequerAutenticacao
+	@RequerPermissao(tipoDePermissao = TipoDePermissao.CONSULTAR)
 	@RequestMapping(method=RequestMethod.GET)
 	public final ResponseEntity<Iterable<ENTIDADE>> findAll(){
 		final Iterable<ENTIDADE> founds = servicoDeCrud.buscarTodos();
@@ -72,14 +79,8 @@ abstract class CrudAbstratoRest<ENTIDADE extends EntidadeAbstrata<ID>, ID extend
 	}
 	
 	@RequerAutenticacao
-	@RequestMapping(value = "/pesquisarUmPeloExemplo", method=RequestMethod.POST)
-	public final ResponseEntity<ENTIDADE> pesquisarUmPeloExemplo(@RequestBody ENTIDADE entity){
-		final ENTIDADE entidadeEncontrada = servicoDeCrud.buscarUmPeloExemplo(entity);
-		return new ResponseEntity<ENTIDADE>(entidadeEncontrada, HttpStatus.OK);
-	}
-	
-	@RequerAutenticacao
-	@RequestMapping(value = "/pesquisarPeloExemplo", method=RequestMethod.POST)
+	@RequerPermissao(tipoDePermissao = TipoDePermissao.CONSULTAR)
+	@RequestMapping(value = "/pesquisar", method=RequestMethod.POST)
 	public final ResponseEntity<Iterable<ENTIDADE>> pesquisarPeloExemplo(@RequestBody ENTIDADE entity){
 		final Collection<ENTIDADE> entidadesEncontradas = servicoDeCrud.buscarPeloExemplo(entity);
 		return new ResponseEntity<Iterable<ENTIDADE>>(entidadesEncontradas, HttpStatus.OK);

@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
+import javax.persistence.OneToMany;
+
 public final class GeradorDeHashcodeParaEntidades implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -39,6 +41,9 @@ public final class GeradorDeHashcodeParaEntidades implements Serializable {
 	}
 
 	private static boolean canCalculate(Field field) {
+		if (field.isAnnotationPresent(OneToMany.class))
+			return false;
+		
 		return !Modifier.isStatic(field.getModifiers()) && Modifier.isPrivate(field.getModifiers());
 	}
 	

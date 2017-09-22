@@ -1,4 +1,4 @@
-package com.univates.tcc.abacate.aplicacao.rest.autorizacao;
+package com.univates.tcc.abacate.aplicacao.rest.interceptador;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,17 +9,20 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.univates.tcc.abacate.aplicacao.configuracoes.ConstantesDeConfiguracao;
-import com.univates.tcc.abacate.dominio.servicos.UsuarioServico;
+import com.univates.tcc.abacate.aplicacao.rest.autorizacao.GerenciadorDeAutenticacao;
+import com.univates.tcc.abacate.aplicacao.rest.permissao.GerenciadorDePermissoes;
+import com.univates.tcc.abacate.dominio.entidades.Usuario;
 
 @Component
-public class AutenticadorInterceptador implements HandlerInterceptor {
+public class InterceptadorDeChamadasRest implements HandlerInterceptor {
 
-	private UsuarioServico usuarioServico;
-	
+	private GerenciadorDeAutenticacao gerenciadorDeAutenticacao;
+	private GerenciadorDePermissoes gerenciadorDePermissoes;
+
 	@Autowired
-	public AutenticadorInterceptador(UsuarioServico usuarioServico) {
-		this.usuarioServico = usuarioServico;
+	public InterceptadorDeChamadasRest(GerenciadorDeAutenticacao gerenciadorDeAutenticacao, GerenciadorDePermissoes gerenciadorDePermissoes) {
+		this.gerenciadorDeAutenticacao = gerenciadorDeAutenticacao;
+		this.gerenciadorDePermissoes = gerenciadorDePermissoes;
 	}
 	
 	@Override
@@ -28,12 +31,10 @@ public class AutenticadorInterceptador implements HandlerInterceptor {
 			return true;
 		
 		HandlerMethod handlerMethod = (HandlerMethod) handler;
-		RequerAutenticacao requerAutorizacao = handlerMethod.getMethod().getAnnotation(RequerAutenticacao.class);
-		if (requerAutorizacao == null) {
-			return true;
-		}
 
-		usuarioServico.checarToken(request.getHeader(ConstantesDeConfiguracao.Autenticacao.TOKEN));
+		Usuario usuarioDoToken = gerenciadorDeAutenticacao.autenticarToken(request, handlerMethod);
+		gerenciadorDePermissoes.validarSeUsuarioPossuiPermissao(request, handlerMethod, usuarioDoToken);
+		
 		return true;
 	}
 

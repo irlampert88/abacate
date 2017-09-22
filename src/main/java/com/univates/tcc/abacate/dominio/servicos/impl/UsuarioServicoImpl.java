@@ -3,13 +3,20 @@ package com.univates.tcc.abacate.dominio.servicos.impl;
 import java.time.LocalDateTime;
 import java.util.Base64;
 
+import javax.persistence.Table;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.univates.tcc.abacate.aplicacao.rest.permissao.TipoDePermissao;
+import com.univates.tcc.abacate.dominio.entidades.EntidadeAbstrata;
+import com.univates.tcc.abacate.dominio.entidades.Permissao;
 import com.univates.tcc.abacate.dominio.entidades.Usuario;
 import com.univates.tcc.abacate.dominio.excecao.AutenticacaoRequerida;
+import com.univates.tcc.abacate.dominio.excecao.SemPermissao;
 import com.univates.tcc.abacate.dominio.repositorios.UsuarioRepositorio;
+import com.univates.tcc.abacate.dominio.servicos.PermissaoServico;
 import com.univates.tcc.abacate.dominio.servicos.UsuarioServico;
 import com.univates.tcc.abacate.integracao.repositorios.agregadores.ConsultasPeloExemplo;
 
@@ -19,16 +26,17 @@ public final class UsuarioServicoImpl
 		implements UsuarioServico {
 
 	private UsuarioRepositorio repositorio;
+	private PermissaoServico permissaoServico;
 
 	@Autowired
-	public UsuarioServicoImpl(UsuarioRepositorio repositorio, ConsultasPeloExemplo consultaPeloExemplo) {
+	public UsuarioServicoImpl(UsuarioRepositorio repositorio, ConsultasPeloExemplo consultaPeloExemplo, PermissaoServico permissaoServico) {
 		super(repositorio, consultaPeloExemplo);
 		this.repositorio = repositorio;
+		this.permissaoServico = permissaoServico;
 	}
 
 	@Override
-	public void checarToken(String token) {
-		// TODO: Mudar para consultar na Sessão
+	public Usuario autenticarToken(String token) {
 		String[] usuarioESenha = extrairUsuarioESenhaDoToken(token);
 		
 		String usuario = usuarioESenha[0];
@@ -37,6 +45,8 @@ public final class UsuarioServicoImpl
 		Usuario usuarioEncontrado = repositorio.procuraUsuarioParaAutenticar(usuario, senha);
 		if (usuarioEncontrado == null)
 			throw new AutenticacaoRequerida("Usuário inválido.");
+		
+		return usuarioEncontrado;
 	}
 
 	private String[] extrairUsuarioESenhaDoToken(String token) {
@@ -69,5 +79,21 @@ public final class UsuarioServicoImpl
 		usuarioEncontrado.setUltimoAcesso(LocalDateTime.now());
 		alterar(usuarioEncontrado);
 	}
-	
+
+	@Override
+	public void validarSeUsuarioPossuiPermissao(Usuario usuario, TipoDePermissao tipoDePermissao, Class<? extends EntidadeAbstrata<?>> classeDaEntidade) {
+		if (naoPossuiPermissao(tipoDePermissao, usuario, nomeDaTablea(classeDaEntidade)))
+			throw new SemPermissao("Usuário " + usuario.getNome() + " não possui permissao de " + tipoDePermissao.toString() + " na tabela " + nomeDaTablea(classeDaEntidade));
+	}
+
+	private boolean naoPossuiPermissao(TipoDePermissao tipoDePermissao, Usuario usuario, String nomeDaTabela) {
+		Permissao permissaoDaTabela = permissaoServico.buscarPermissaoDoUsuarioNaTabela(usuario, nomeDaTabela);
+		
+		return !tipoDePermissao.possuiPermissao(permissaoDaTabela);
+	}
+
+	private String nomeDaTablea(Class<? extends EntidadeAbstrata<?>> classeDaEntidade) {
+		Table tabela = classeDaEntidade.getAnnotation(Table.class);
+		return tabela.name();
+	}
 }
