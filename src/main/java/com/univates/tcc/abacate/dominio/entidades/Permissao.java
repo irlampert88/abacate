@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.univates.tcc.abacate.integracao.repositorios.ouvintes.OuvinteRegistroDeLog;
 
 @Entity
@@ -41,6 +42,7 @@ public class Permissao extends EntidadeAbstrata<Integer> {
 	
 	@ManyToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "usuario_id", nullable = false)
+	@JsonIgnore
 	private Usuario usuario;
 	
 	@Override
