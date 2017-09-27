@@ -8,8 +8,10 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StringUtils;
 
 import com.univates.tcc.abacate.dominio.entidades.EntidadeAbstrata;
 import com.univates.tcc.abacate.integracao.repositorios.agregadores.ConsultasPeloExemplo;
@@ -34,6 +36,20 @@ public class ConsultasPeloExemploHibernateImpl
 		Session session = entityManager.unwrap(Session.class);
 		Criteria criteria = session.createCriteria(exampleEntity.getClass()).add(example);
 
+		return (Collection<E>) criteria.list();
+	}
+
+	@Override
+	public <E extends EntidadeAbstrata<?>> Collection<E> buscarPeloExemploComPaginacao(E exampleEntity, Integer pagina, Integer quantidade, String atributoOrdenado, String ordem) {
+		Example example = Example.create(exampleEntity).enableLike(MatchMode.ANYWHERE);
+		Session session = entityManager.unwrap(Session.class);
+		Criteria criteria = session.createCriteria(exampleEntity.getClass()).add(example);
+		criteria.setMaxResults(quantidade);
+		criteria.setFirstResult(pagina*quantidade);
+		
+		if (!StringUtils.isEmpty(atributoOrdenado) && !StringUtils.isEmpty(ordem))
+			criteria.addOrder("asc".equals(ordem) ? Order.asc(atributoOrdenado) : Order.desc(atributoOrdenado));
+		
 		return (Collection<E>) criteria.list();
 	}
 

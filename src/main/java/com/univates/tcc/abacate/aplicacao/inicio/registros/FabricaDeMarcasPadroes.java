@@ -16,10 +16,25 @@ public class FabricaDeMarcasPadroes
 	@Override
 	public void criarRegistrosPadroes() {
 		if (servico.buscarTodos().isEmpty()) {
-			Marca registro = new Marca();
-			registro.setDescricao("Marca ABC");
+			Marca registro1 = new Marca();
+			registro1.setDescricao("AMarca ABC");
+			servico.inserir(registro1);
 			
-			servico.inserir(registro);
+			Marca registro2 = new Marca();
+			registro2.setDescricao("BMarca ABC");
+			servico.inserir(registro2);
+			
+			Marca registro3 = new Marca();
+			registro3.setDescricao("CMarca ABC");
+			servico.inserir(registro3);
+			
+			Marca registro4 = new Marca();
+			registro4.setDescricao("DMarca ABC");
+			servico.inserir(registro4);
+			
+			Marca registro5 = new Marca();
+			registro5.setDescricao("EMarca ABC");
+			servico.inserir(registro5);
 		}
 	}
 

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.univates.tcc.abacate.aplicacao.rest.autorizacao.RequerAutenticacao;
 import com.univates.tcc.abacate.aplicacao.rest.permissao.RequerPermissao;
@@ -49,7 +50,7 @@ abstract class CrudAbstratoRest<ENTIDADE extends EntidadeAbstrata<ID>, ID extend
 
 	@RequerAutenticacao
 	@RequerPermissao(tipoDePermissao = TipoDePermissao.DELETAR)
-	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+	@RequestMapping(method=RequestMethod.DELETE, value="/{id}")
 	public final ResponseEntity<ID> delete(@PathVariable("id") ID id){
 		servicoDeCrud.deletar(id);
 		return new ResponseEntity<ID>(id, HttpStatus.OK);
@@ -57,7 +58,7 @@ abstract class CrudAbstratoRest<ENTIDADE extends EntidadeAbstrata<ID>, ID extend
 	
 	@RequerAutenticacao
 	@RequerPermissao(tipoDePermissao = TipoDePermissao.CONSULTAR)
-	@RequestMapping(value = "/{id}", method=RequestMethod.GET)
+	@RequestMapping(method=RequestMethod.GET, value = "/{id}")
 	public final ResponseEntity<ENTIDADE> findById(@PathVariable ID id){
 		final ENTIDADE found = servicoDeCrud.buscarPorId(id);
 		return new ResponseEntity<ENTIDADE>(found, HttpStatus.OK);
@@ -66,9 +67,26 @@ abstract class CrudAbstratoRest<ENTIDADE extends EntidadeAbstrata<ID>, ID extend
 	@RequerAutenticacao
 	@RequerPermissao(tipoDePermissao = TipoDePermissao.CONSULTAR)
 	@RequestMapping(method=RequestMethod.GET)
-	public final ResponseEntity<Iterable<ENTIDADE>> findAll(){
-		final Iterable<ENTIDADE> founds = servicoDeCrud.buscarTodos();
+	public final ResponseEntity<Iterable<ENTIDADE>> findAll(
+			@RequestParam(name = "pagina", required = true) Integer pagina, 
+			@RequestParam(name = "quantidade", required = true) Integer quantidade, 
+			@RequestParam(name = "atributoOrdenado", required = false) String atributoOrdenado, 
+			@RequestParam(name = "ordem", required = false, defaultValue = "asc") String ordem){
+		final Iterable<ENTIDADE> founds = servicoDeCrud.buscarTodosComPaginacao(pagina, quantidade, atributoOrdenado, ordem);
 		return new ResponseEntity<Iterable<ENTIDADE>>(founds, HttpStatus.OK);		
+	}
+
+	@RequerAutenticacao
+	@RequerPermissao(tipoDePermissao = TipoDePermissao.CONSULTAR)
+	@RequestMapping(value = "/pesquisar", method=RequestMethod.POST)
+	public final ResponseEntity<Iterable<ENTIDADE>> pesquisarPeloExemplo(@
+			RequestBody ENTIDADE entity, 
+			@RequestParam(name = "pagina", required = true) Integer pagina, 
+			@RequestParam(name = "quantidade", required = true) Integer quantidade, 
+			@RequestParam(name = "atributoOrdenado", required = false) String atributoOrdenado, 
+			@RequestParam(name = "ordem", required = false, defaultValue = "asc") String ordem){
+		final Collection<ENTIDADE> entidadesEncontradas = servicoDeCrud.buscarPeloExemploComPaginacao(entity, pagina, quantidade, atributoOrdenado, ordem);
+		return new ResponseEntity<Iterable<ENTIDADE>>(entidadesEncontradas, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/estrutura", method=RequestMethod.GET)
@@ -76,14 +94,6 @@ abstract class CrudAbstratoRest<ENTIDADE extends EntidadeAbstrata<ID>, ID extend
 		final Class<?> classeDaEntidade = identificaClasseDeUmGeneric(getClass(), PRIMEIRO_GENERIC);
 		final ENTIDADE instanciaVaziaDaEntidade = (ENTIDADE) criaInstancia(classeDaEntidade);
 		return new ResponseEntity<ENTIDADE>(instanciaVaziaDaEntidade, HttpStatus.OK);
-	}
-	
-	@RequerAutenticacao
-	@RequerPermissao(tipoDePermissao = TipoDePermissao.CONSULTAR)
-	@RequestMapping(value = "/pesquisar", method=RequestMethod.POST)
-	public final ResponseEntity<Iterable<ENTIDADE>> pesquisarPeloExemplo(@RequestBody ENTIDADE entity){
-		final Collection<ENTIDADE> entidadesEncontradas = servicoDeCrud.buscarPeloExemplo(entity);
-		return new ResponseEntity<Iterable<ENTIDADE>>(entidadesEncontradas, HttpStatus.OK);
 	}
 	
 }

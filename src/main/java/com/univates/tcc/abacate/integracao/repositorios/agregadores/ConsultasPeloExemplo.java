@@ -11,4 +11,5 @@ public interface ConsultasPeloExemplo {
 
 	public <E extends EntidadeAbstrata<?>> E buscarUmPeloExemplo(E exampleEntity);
 	public <E extends EntidadeAbstrata<?>> Collection<E> buscarPeloExemplo(E exampleEntity);
+	public <E extends EntidadeAbstrata<?>> Collection<E> buscarPeloExemploComPaginacao(E exampleEntity, Integer pagina, Integer quantidade, String atributoOrdenado, String ordem);
 }
