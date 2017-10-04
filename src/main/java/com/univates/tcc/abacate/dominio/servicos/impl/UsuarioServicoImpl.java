@@ -89,7 +89,7 @@ public final class UsuarioServicoImpl
 	private boolean naoPossuiPermissao(TipoDePermissao tipoDePermissao, Usuario usuario, String nomeDaTabela) {
 		Permissao permissaoDaTabela = permissaoServico.buscarPermissaoDoUsuarioNaTabela(usuario, nomeDaTabela);
 		
-		return !tipoDePermissao.possuiPermissao(permissaoDaTabela);
+		return permissaoDaTabela != null && !tipoDePermissao.possuiPermissao(permissaoDaTabela);
 	}
 
 	private String nomeDaTablea(Class<? extends EntidadeAbstrata<?>> classeDaEntidade) {

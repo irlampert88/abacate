@@ -21,16 +21,33 @@ public class FabricaDePermissoesPadroes
 	@Override
 	public void criarRegistrosPadroes() {
 		if (servico.buscarTodos().isEmpty()) {
-			
 			Usuario usuario = usuarioServico.buscarTodos().stream().findFirst().get();
 
-			Permissao registro = new Permissao();
-			registro.setUsuario(usuario);
-			registro.setTabela("marcas");
-			registro.setConsultar(true);
-			
-			servico.inserir(registro);
+			servico.inserir(permissaoDeMarcas(usuario));
+			servico.inserir(permissaoSobrePermissoes(usuario));
 		}
+	}
+
+	private Permissao permissaoSobrePermissoes(Usuario usuario) {
+		Permissao registro = new Permissao();
+		registro.setUsuario(usuario);
+		registro.setTabela("permissoes");
+		registro.setConsultar(true);
+		registro.setAlterar(true);
+		registro.setDeletar(true);
+		registro.setInserir(true);
+		return registro;
+	}
+
+	private Permissao permissaoDeMarcas(Usuario usuario) {
+		Permissao registro = new Permissao();
+		registro.setUsuario(usuario);
+		registro.setTabela("marcas");
+		registro.setConsultar(true);
+		registro.setAlterar(true);
+		registro.setDeletar(true);
+		registro.setInserir(true);
+		return registro;
 	}
 
 }
