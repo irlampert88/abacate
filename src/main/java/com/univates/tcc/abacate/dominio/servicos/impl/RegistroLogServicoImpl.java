@@ -1,5 +1,7 @@
 package com.univates.tcc.abacate.dominio.servicos.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -9,6 +11,7 @@ import com.univates.tcc.abacate.aplicacao.apis.JsonApi;
 import com.univates.tcc.abacate.dominio.agregadores.Acoes;
 import com.univates.tcc.abacate.dominio.construtores.ConstrutorDeRegistroLog;
 import com.univates.tcc.abacate.dominio.entidades.EntidadeAbstrata;
+import com.univates.tcc.abacate.dominio.entidades.Permissao;
 import com.univates.tcc.abacate.dominio.entidades.RegistroLog;
 import com.univates.tcc.abacate.dominio.entidades.Usuario;
 import com.univates.tcc.abacate.dominio.repositorios.RegistroLogRepositorio;
@@ -36,26 +39,29 @@ public final class RegistroLogServicoImpl
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	public <E extends EntidadeAbstrata<?>> void registrarLog(E entidade, Acoes acao) {
-		if (naoPossuiUsuario() && registroDeLogParaUsuario(entidade))
+		if (registroDePermissao(entidade) || registroDeLogParaUsuario(entidade))
 			return;
 		
-		RegistroLog novoLog = new ConstrutorDeRegistroLog(jsonApi)
-				.paraUsuarioLogado(buscaUsuarioLogado()).paraEntidade(entidade).daAcao(acao).criar();
-		inserir(novoLog);
+		Usuario usuarioLogado = buscaUsuarioLogado();
+		if (usuarioLogado != null) {
+			RegistroLog novoLog = new ConstrutorDeRegistroLog(jsonApi)
+					.paraUsuarioLogado(usuarioLogado).paraEntidade(entidade).daAcao(acao).criar();
+			inserir(novoLog);
+		}
+	}
+
+	private <E extends EntidadeAbstrata<?>> boolean registroDePermissao(E entidade) {
+		return entidade instanceof Permissao;
 	}
 
 	private <E extends EntidadeAbstrata<?>> boolean registroDeLogParaUsuario(E entidade) {
 		return entidade instanceof Usuario;
 	}
 
-	private boolean naoPossuiUsuario() {
-		// TODO Mudar para Count
-		return repositorioTEMPORARIO.findAll().isEmpty();
-	}
-
 	private Usuario buscaUsuarioLogado() {
 		// TODO Mudar para Sessão?
-		return repositorioTEMPORARIO.findAll().get(0);
+		List<Usuario> usuarios = repositorioTEMPORARIO.findAll();
+		return usuarios.isEmpty() ? null : usuarios.get(0);
 	}
 	
 }

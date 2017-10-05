@@ -9,4 +9,5 @@ public interface UsuarioServico extends ServicoDeCrud<Usuario, Integer> {
 	public Usuario autenticarToken(String token);
 	public Usuario autenticar(Usuario usuario);
 	public void validarSeUsuarioPossuiPermissao(Usuario usuario, TipoDePermissao tipoDePermissao, Class<? extends EntidadeAbstrata<?>> classeDaEntidade);
+	public Usuario resetarSenha(Usuario usuario);
 }

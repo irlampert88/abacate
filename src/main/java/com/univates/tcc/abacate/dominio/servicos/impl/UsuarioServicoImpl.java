@@ -88,12 +88,19 @@ public final class UsuarioServicoImpl
 
 	private boolean naoPossuiPermissao(TipoDePermissao tipoDePermissao, Usuario usuario, String nomeDaTabela) {
 		Permissao permissaoDaTabela = permissaoServico.buscarPermissaoDoUsuarioNaTabela(usuario, nomeDaTabela);
-		
 		return permissaoDaTabela != null && !tipoDePermissao.possuiPermissao(permissaoDaTabela);
 	}
 
 	private String nomeDaTablea(Class<? extends EntidadeAbstrata<?>> classeDaEntidade) {
 		Table tabela = classeDaEntidade.getAnnotation(Table.class);
 		return tabela.name();
+	}
+
+	@Override
+	public Usuario resetarSenha(Usuario usuarioComNovaSenha) {
+		Usuario usuarioComSenhaAtualizada = repositorio.procuraUsuarioParaResetDeSenha(usuarioComNovaSenha.getNome(), usuarioComNovaSenha.getEmail());
+		usuarioComSenhaAtualizada.setSenha(usuarioComNovaSenha.getSenha());
+
+		return usuarioComSenhaAtualizada;
 	}
 }

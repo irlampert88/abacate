@@ -7,4 +7,5 @@ public interface PermissaoServico
 	extends ServicoDeCrud<Permissao, Integer> {
 
 	public Permissao buscarPermissaoDoUsuarioNaTabela(Usuario usuario, String nomeDaTabela);
+	public void atribuirTodasAsTabelasNasPermissoesDoUsuario(Usuario entidade);
 }

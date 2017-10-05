@@ -40,7 +40,7 @@ public class Permissao extends EntidadeAbstrata<Integer> {
 	@Column
 	private boolean deletar;
 	
-	@ManyToOne(cascade = CascadeType.REFRESH)
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "usuario_id", nullable = false)
 	@JsonIgnore
 	private Usuario usuario;

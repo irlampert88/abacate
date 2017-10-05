@@ -36,7 +36,7 @@ public class ConstrutorDeRegistroLog implements Serializable {
 		Object cloneDaEntidade = entidade.clone();
 		removerArquivosDaEntidade(cloneDaEntidade);
 		return jsonApi.paraJson(cloneDaEntidade);
-	}
+ 	}
 	
 	private void removerArquivosDaEntidade(Object cloneDaEntidade) {
 		for (Field campo : cloneDaEntidade.getClass().getDeclaredFields()) {
@@ -69,4 +69,5 @@ public class ConstrutorDeRegistroLog implements Serializable {
 	public RegistroLog criar() {
 		return log;
 	}
+	
 }

@@ -1,3 +1,4 @@
+
 package com.univates.tcc.abacate.aplicacao.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,12 @@ public class UsuarioRest extends CrudAbstratoRest<Usuario, Integer> {
 	@RequestMapping(value="/autenticar", method=RequestMethod.POST) 
 	public final ResponseEntity<Usuario> autenticar(@RequestBody Usuario usuario){
 		usuario = usuarioServico.autenticar(usuario);		
+		return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
+	}	
+	
+	@RequestMapping(value="/resetarSenha", method=RequestMethod.PATCH) 
+	public final ResponseEntity<Usuario> resetarSenha(@RequestBody Usuario usuario){
+		usuario = usuarioServico.resetarSenha(usuario);		
 		return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
 	}	
 	
