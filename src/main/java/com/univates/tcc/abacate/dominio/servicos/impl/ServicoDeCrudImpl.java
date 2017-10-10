@@ -30,13 +30,13 @@ class ServicoDeCrudImpl<R extends RepositorioDeCrud<E, ID>, E extends EntidadeAb
 	@Override
 	@Transactional(readOnly = false)
 	public final E inserir(E novaEntidade) {
-		return repositorio.save(novaEntidade);
+		return repositorio.saveAndFlush(novaEntidade);
 	}
 
 	@Override
 	@Transactional(readOnly = false)
 	public final E alterar(E entidade) {
-		return repositorio.save(entidade);
+		return repositorio.saveAndFlush(entidade);
 	}
 
 	@Override

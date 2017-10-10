@@ -33,8 +33,10 @@ public class ConsultasPeloExemploHibernateImpl
 
 	@Override
 	public <E extends EntidadeAbstrata<?>> Collection<E> buscarPeloExemplo(E exampleEntity) {
-		Example example = Example.create(exampleEntity).enableLike(MatchMode.ANYWHERE).ignoreCase();
 		Session session = entityManager.unwrap(Session.class);
+		session.clear();
+
+		Example example = Example.create(exampleEntity).enableLike(MatchMode.ANYWHERE).ignoreCase();
 		Criteria criteria = session.createCriteria(exampleEntity.getClass()).add(example);
 
 		return (Collection<E>) criteria.list();
@@ -42,8 +44,10 @@ public class ConsultasPeloExemploHibernateImpl
 
 	@Override
 	public <E extends EntidadeAbstrata<?>> Collection<E> buscarPeloExemploComPaginacao(E exampleEntity, Integer pagina, Integer quantidade, String atributoOrdenado, String ordem) {
-		Example example = Example.create(exampleEntity).enableLike(MatchMode.ANYWHERE).ignoreCase();
 		Session session = entityManager.unwrap(Session.class);
+		session.clear();
+
+		Example example = Example.create(exampleEntity).enableLike(MatchMode.ANYWHERE).ignoreCase();
 		Criteria criteria = session.createCriteria(exampleEntity.getClass()).add(example);
 		criteria.setMaxResults(quantidade);
 		criteria.setFirstResult(pagina*quantidade);
