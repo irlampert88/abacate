@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import com.univates.tcc.abacate.dominio.entidades.Marca;
 import com.univates.tcc.abacate.dominio.entidades.Permissao;
 import com.univates.tcc.abacate.dominio.entidades.Usuario;
+import com.univates.tcc.abacate.dominio.servicos.PermissaoServico;
 import com.univates.tcc.abacate.dominio.servicos.UsuarioServico;
 import com.univates.tcc.abacate.dominio.utilitarios.NomeDaTabela;
 
@@ -16,27 +17,32 @@ public class FabricaDePermissoesPadroes
 	implements FabricaDeRegistroPadrao {
 
 	@Autowired
+	private PermissaoServico permissaoServico;
+	
+	@Autowired 
 	private UsuarioServico usuarioServico;
 	
 	@Override
 	public void criarRegistrosPadroes() {
-		Collection<Usuario> todosUsuarios = usuarioServico.buscarTodos();
-		if(todosUsuarios.size() == 1) {
-			Usuario usuario = todosUsuarios.stream().findFirst().get();
-			adicionaPermissaoPara(usuario, NomeDaTabela.daClasse(Permissao.class));
-			adicionaPermissaoPara(usuario, NomeDaTabela.daClasse(Marca.class));
-			adicionaPermissaoPara(usuario, NomeDaTabela.daClasse(Usuario.class));
-			usuarioServico.alterar(usuario);
+		if (usuarioServico.buscarTodos().size() == 1) {
+			Collection<Permissao> permissoes = permissaoServico.permissoesDoUsuario(1);
+			
+			if(!permissoes.isEmpty()) {
+				alterarPermissaoPara(permissoes, NomeDaTabela.daClasse(Permissao.class));
+				alterarPermissaoPara(permissoes, NomeDaTabela.daClasse(Marca.class));
+				alterarPermissaoPara(permissoes, NomeDaTabela.daClasse(Usuario.class));
+			}
 		}
 	}
 
-	private void adicionaPermissaoPara(Usuario usuario, String nomeDaTabela) {
-		for (Permissao permissao : usuario.getPermissoes()) {
+	private void alterarPermissaoPara(Collection<Permissao> permissoes, String nomeDaTabela) {
+		for (Permissao permissao : permissoes) {
 			if (nomeDaTabela.equals(permissao.getTabela())) {
 				permissao.setConsultar(true);
 				permissao.setAlterar(true);
 				permissao.setDeletar(true);
 				permissao.setInserir(true);
+				permissaoServico.alterar(permissao);
 			}
 		}
 	}

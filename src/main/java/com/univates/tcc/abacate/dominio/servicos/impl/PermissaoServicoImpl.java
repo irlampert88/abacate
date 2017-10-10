@@ -1,5 +1,6 @@
 package com.univates.tcc.abacate.dominio.servicos.impl;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -37,7 +38,10 @@ public final class PermissaoServicoImpl
 	public void atribuirTodasAsTabelasNasPermissoesDoUsuario(Usuario usuario) {
 		Iterable<Class<EntidadeAbstrata<?>>> entidades = LocalizadorDeClasses.todasEntidades();
 		Set<Permissao> permissoesDoUsuario = listaDePermissoesParaAsEntidades(entidades, usuario);
-		usuario.setPermissoes(permissoesDoUsuario);
+
+		for (Permissao permissaoDoUsuario : permissoesDoUsuario) {
+			inserir(permissaoDoUsuario);
+		}
 	}
 
 	private <CLASSE extends EntidadeAbstrata<?>> Set<Permissao> listaDePermissoesParaAsEntidades(Iterable<Class<CLASSE>> entidades, Usuario usuario) {
@@ -48,5 +52,17 @@ public final class PermissaoServicoImpl
 			permissoes.add(novaPermissao);
 		}
 		return permissoes;
+	}
+
+	@Override
+	public Collection<Permissao> permissoesDoUsuario(Integer idDoUsuario) {
+		return repositorio.buscarPermissoesDoUsuario(idDoUsuario);
+	}
+
+	@Override
+	public void salvarListaDePermissoes(Collection<Permissao> permissoes) {
+		for (Permissao permissao : permissoes) {
+			alterar(permissao);
+		}
 	}
 }

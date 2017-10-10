@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
 import com.univates.tcc.abacate.dominio.entidades.EntidadeAbstrata;
+import com.univates.tcc.abacate.dominio.entidades.Usuario;
 import com.univates.tcc.abacate.integracao.repositorios.agregadores.ConsultasPeloExemplo;
 
 @Repository
@@ -32,7 +33,7 @@ public class ConsultasPeloExemploHibernateImpl
 
 	@Override
 	public <E extends EntidadeAbstrata<?>> Collection<E> buscarPeloExemplo(E exampleEntity) {
-		Example example = Example.create(exampleEntity).enableLike(MatchMode.ANYWHERE);
+		Example example = Example.create(exampleEntity).enableLike(MatchMode.ANYWHERE).ignoreCase();
 		Session session = entityManager.unwrap(Session.class);
 		Criteria criteria = session.createCriteria(exampleEntity.getClass()).add(example);
 
@@ -41,7 +42,7 @@ public class ConsultasPeloExemploHibernateImpl
 
 	@Override
 	public <E extends EntidadeAbstrata<?>> Collection<E> buscarPeloExemploComPaginacao(E exampleEntity, Integer pagina, Integer quantidade, String atributoOrdenado, String ordem) {
-		Example example = Example.create(exampleEntity).enableLike(MatchMode.ANYWHERE);
+		Example example = Example.create(exampleEntity).enableLike(MatchMode.ANYWHERE).ignoreCase();
 		Session session = entityManager.unwrap(Session.class);
 		Criteria criteria = session.createCriteria(exampleEntity.getClass()).add(example);
 		criteria.setMaxResults(quantidade);

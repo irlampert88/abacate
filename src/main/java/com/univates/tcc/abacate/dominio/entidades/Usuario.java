@@ -1,19 +1,14 @@
 package com.univates.tcc.abacate.dominio.entidades;
 
 import java.time.LocalDateTime;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.univates.tcc.abacate.integracao.repositorios.conversores.ConversorDeLocalDateTime;
@@ -50,10 +45,6 @@ public class Usuario
 	@Column
 	@Convert(converter = ConversorDeLocalDateTime.class)
 	private LocalDateTime ultimoAcesso;
-	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "usuario_id")
-	private Set<Permissao> permissoes;
 	
 	@Override
 	public Integer getId() {
@@ -113,12 +104,4 @@ public class Usuario
 		this.ultimoAcesso = ultimoAcesso;
 	}
 	
-	public Set<Permissao> getPermissoes() {
-		return permissoes;
-	}
-	
-	public void setPermissoes(Set<Permissao> permissoes) {
-		this.permissoes = permissoes;
-	}
-
 }

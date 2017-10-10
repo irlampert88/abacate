@@ -1,5 +1,6 @@
 package com.univates.tcc.abacate.integracao.repositorios.ouvintes;
 
+import javax.persistence.PostPersist;
 import javax.persistence.PrePersist;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ public class OuvinteAtribuicaoDePermissaoParaNovosUsuarios {
 	@Autowired
 	private PermissaoServico servicoDePermissoes;
 	
-	@PrePersist
+	@PostPersist
     public <E extends EntidadeAbstrata<?>> void antesDeInserir(Object entidade){
 		AutowireHelper.autowire(this);
 		servicoDePermissoes.atribuirTodasAsTabelasNasPermissoesDoUsuario((Usuario) entidade);

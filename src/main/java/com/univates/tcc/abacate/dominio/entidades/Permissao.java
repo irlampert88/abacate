@@ -7,7 +7,6 @@ import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -41,7 +40,6 @@ public class Permissao extends EntidadeAbstrata<Integer> {
 	private boolean deletar;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "usuario_id", nullable = false)
 	@JsonIgnore
 	private Usuario usuario;
 	

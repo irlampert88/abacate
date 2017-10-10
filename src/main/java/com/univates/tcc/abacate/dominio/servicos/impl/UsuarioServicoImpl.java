@@ -15,6 +15,7 @@ import com.univates.tcc.abacate.dominio.entidades.Permissao;
 import com.univates.tcc.abacate.dominio.entidades.Usuario;
 import com.univates.tcc.abacate.dominio.excecoes.AutenticacaoRequerida;
 import com.univates.tcc.abacate.dominio.excecoes.SemPermissao;
+import com.univates.tcc.abacate.dominio.excecoes.UsuarioInvalido;
 import com.univates.tcc.abacate.dominio.repositorios.UsuarioRepositorio;
 import com.univates.tcc.abacate.dominio.servicos.PermissaoServico;
 import com.univates.tcc.abacate.dominio.servicos.UsuarioServico;
@@ -98,7 +99,11 @@ public final class UsuarioServicoImpl
 
 	@Override
 	public Usuario resetarSenha(Usuario usuarioComNovaSenha) {
-		Usuario usuarioComSenhaAtualizada = repositorio.procuraUsuarioParaResetDeSenha(usuarioComNovaSenha.getNome(), usuarioComNovaSenha.getEmail());
+		Usuario usuarioComSenhaAtualizada = repositorio.procuraUsuarioParaResetDeSenha(usuarioComNovaSenha.getUsuario(), usuarioComNovaSenha.getEmail());
+		
+		if (usuarioComSenhaAtualizada == null)
+			throw new UsuarioInvalido("Usuário não encontrado com o usuario " + usuarioComNovaSenha.getUsuario() + " e e-mail " + usuarioComNovaSenha.getEmail());
+		
 		usuarioComSenhaAtualizada.setSenha(usuarioComNovaSenha.getSenha());
 
 		return usuarioComSenhaAtualizada;
