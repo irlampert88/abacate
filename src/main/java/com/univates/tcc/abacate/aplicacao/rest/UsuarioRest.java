@@ -52,7 +52,7 @@ public class UsuarioRest extends CrudAbstratoRest<Usuario, Integer> {
 	@RequerAutenticacao
 	@RequerPermissao(tipoDePermissao = TipoDePermissao.CONSULTAR)
 	@RequestMapping(method=RequestMethod.GET, value = "permissoesDoUsuario/{id}")
-	public final ResponseEntity<Collection<Permissao>> buscarPermissoesDoUsuario(@PathVariable Integer idDoUsuario){
+	public final ResponseEntity<Collection<Permissao>> buscarPermissoesDoUsuario(@PathVariable("id") Integer idDoUsuario){
 		return new ResponseEntity<Collection<Permissao>>(permissaoServico.permissoesDoUsuario(idDoUsuario), HttpStatus.OK);
 	}
 	
