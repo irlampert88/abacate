@@ -20,7 +20,7 @@ public interface PermissaoRepositorio
 	Permissao buscarPermissaoDoUsuarioNaTabela(@Param("usuarioId") Integer usuarioId, @Param("nomeDaTabela") String nomeDaTabela);
 
 	@Query(nativeQuery = true, 
-			value = "select * from permissoes where usuario_id = :usuarioId")
+			value = "select p.* from permissoes p, usuarios u where p.usuario_id = u.id and p.usuario_id = :usuarioId")
 	Collection<Permissao> buscarPermissoesDoUsuario(@Param("usuarioId") Integer idDoUsuario);
 
 }
