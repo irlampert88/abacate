@@ -1,6 +1,5 @@
 package com.univates.tcc.abacate.dominio.entidades;
 
-import java.io.File;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -43,16 +42,16 @@ public class Rack extends EntidadeAbstrata<Integer> {
 	private Integer numeroU;
 	
 	@Column
-	private Integer altura;
+	private Float altura;
 	
 	@Column
-	private Integer largura;
+	private Float largura;
 	
 	@Column
-	private Integer profundidade;
+	private Float profundidade;
 
 	@Column(length = 4000)
-	private File foto;
+	private String foto;
 	
 	@ManyToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "local_id", nullable = false)
@@ -118,35 +117,35 @@ public class Rack extends EntidadeAbstrata<Integer> {
 		this.numeroU = numeroU;
 	}
 
-	public Integer getAltura() {
+	public Float getAltura() {
 		return altura;
 	}
 
-	public void setAltura(Integer altura) {
+	public void setAltura(Float altura) {
 		this.altura = altura;
 	}
 
-	public Integer getLargura() {
+	public Float getLargura() {
 		return largura;
 	}
 
-	public void setLargura(Integer largura) {
+	public void setLargura(Float largura) {
 		this.largura = largura;
 	}
 
-	public Integer getProfundidade() {
+	public Float getProfundidade() {
 		return profundidade;
 	}
 
-	public void setProfundidade(Integer profundidade) {
+	public void setProfundidade(Float profundidade) {
 		this.profundidade = profundidade;
 	}
 
-	public File getFoto() {
+	public String getFoto() {
 		return foto;
 	}
 
-	public void setFoto(File foto) {
+	public void setFoto(String foto) {
 		this.foto = foto;
 	}
 

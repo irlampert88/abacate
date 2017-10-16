@@ -2,6 +2,7 @@ package com.univates.tcc.abacate.dominio.utilitarios;
 
 import java.io.File;
 import java.lang.reflect.Field;
+import java.sql.Blob;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -26,7 +27,8 @@ public class LimparAtributoDoObjeto {
 						new LimparAtributoDoObjeto().removerArquivosDaEntidade(Arrays.asList(campo.get(objeto)));
 					}
 					
-					if (campo.getType().equals(File.class)) {
+					if (campo.getName().equals("foto") ||
+							campo.getType().equals(Blob.class) || campo.getType().equals(File.class)) {
 						try {
 							campo.set(objeto, null);
 						} catch (Exception e) {
