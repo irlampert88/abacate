@@ -51,7 +51,7 @@ public class Rack extends EntidadeAbstrata<Integer> {
 	@Column
 	private Float profundidade;
 
-	@Column(length = 64000)
+	@Column(length = 256000)
 	@Foto
 	private String foto;
 	
