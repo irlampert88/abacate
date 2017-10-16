@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.univates.tcc.abacate.integracao.repositorios.ouvintes.OuvinteRegistroDeLog;
 
 @Entity
@@ -38,6 +39,7 @@ public class Local extends EntidadeAbstrata<Integer> {
 	@Column
 	private String observacao;
 	
+	@JsonIgnore
 	@Column
 	private Blob mapa;
 	

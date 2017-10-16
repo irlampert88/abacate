@@ -21,6 +21,7 @@ import com.univates.tcc.abacate.aplicacao.rest.permissao.RequerPermissao;
 import com.univates.tcc.abacate.aplicacao.rest.permissao.TipoDePermissao;
 import com.univates.tcc.abacate.dominio.entidades.EntidadeAbstrata;
 import com.univates.tcc.abacate.dominio.servicos.ServicoDeCrud;
+import com.univates.tcc.abacate.dominio.utilitarios.LimparAtributoDoObjeto;
 
 @RequestMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 @SuppressWarnings("all")
@@ -68,12 +69,13 @@ abstract class CrudAbstratoRest<ENTIDADE extends EntidadeAbstrata<ID>, ID extend
 	@RequerPermissao(tipoDePermissao = TipoDePermissao.CONSULTAR)
 	@RequestMapping(method=RequestMethod.GET)
 	public final ResponseEntity<Iterable<ENTIDADE>> findAll(
-			@RequestParam(name = "pagina", required = true) Integer pagina, 
-			@RequestParam(name = "quantidade", required = true) Integer quantidade, 
+			@RequestParam(name = "pagina", required = false) Integer pagina, 
+			@RequestParam(name = "quantidade", required = false) Integer quantidade, 
 			@RequestParam(name = "atributoOrdenado", required = false) String atributoOrdenado, 
 			@RequestParam(name = "ordem", required = false, defaultValue = "asc") String ordem){
-		final Iterable<ENTIDADE> founds = servicoDeCrud.buscarTodosComPaginacao(pagina, quantidade, atributoOrdenado, ordem);
-		return new ResponseEntity<Iterable<ENTIDADE>>(founds, HttpStatus.OK);		
+		final Iterable<ENTIDADE> entidadesEncontradas = servicoDeCrud.buscarTodosComPaginacao(pagina, quantidade, atributoOrdenado, ordem);
+		new LimparAtributoDoObjeto().removerArquivosDaEntidade(entidadesEncontradas);
+		return new ResponseEntity<Iterable<ENTIDADE>>(entidadesEncontradas, HttpStatus.OK);		
 	}
 
 	@RequerAutenticacao
@@ -86,6 +88,7 @@ abstract class CrudAbstratoRest<ENTIDADE extends EntidadeAbstrata<ID>, ID extend
 			@RequestParam(name = "atributoOrdenado", required = false) String atributoOrdenado, 
 			@RequestParam(name = "ordem", required = false, defaultValue = "asc") String ordem){
 		final Collection<ENTIDADE> entidadesEncontradas = servicoDeCrud.buscarPeloExemploComPaginacao(entity, pagina, quantidade, atributoOrdenado, ordem);
+		new LimparAtributoDoObjeto().removerArquivosDaEntidade(entidadesEncontradas);
 		return new ResponseEntity<Iterable<ENTIDADE>>(entidadesEncontradas, HttpStatus.OK);
 	}
 	

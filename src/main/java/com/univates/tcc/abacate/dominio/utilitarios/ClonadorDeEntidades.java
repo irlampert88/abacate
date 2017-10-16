@@ -35,7 +35,7 @@ public final class ClonadorDeEntidades implements Serializable {
 	}
 	
 	private static boolean canPopulate(Field field) {
-		return !Modifier.isStatic(field.getModifiers()) && Modifier.isPrivate(field.getModifiers());
+		return (!Modifier.isStatic(field.getModifiers())) && Modifier.isPrivate(field.getModifiers());
 	}
 	
 }

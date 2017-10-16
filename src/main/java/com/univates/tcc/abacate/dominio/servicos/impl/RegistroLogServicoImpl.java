@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.univates.tcc.abacate.aplicacao.apis.JsonApi;
 import com.univates.tcc.abacate.dominio.agregadores.Acoes;
 import com.univates.tcc.abacate.dominio.construtores.ConstrutorDeRegistroLog;
 import com.univates.tcc.abacate.dominio.entidades.EntidadeAbstrata;
@@ -28,12 +27,9 @@ public final class RegistroLogServicoImpl
 	@Autowired
 	private UsuarioRepositorio repositorioTEMPORARIO; // TODO REMOVER ISSO!!!!
 	
-	private JsonApi jsonApi;
-
 	@Autowired
-	public RegistroLogServicoImpl(RegistroLogRepositorio repositorio, JsonApi jsonApi, ConsultasPeloExemplo consultaPeloExemplo) {
+	public RegistroLogServicoImpl(RegistroLogRepositorio repositorio, ConsultasPeloExemplo consultaPeloExemplo) {
 		super(repositorio, consultaPeloExemplo);
-		this.jsonApi = jsonApi;
 	}
 
 	@Override
@@ -44,7 +40,7 @@ public final class RegistroLogServicoImpl
 		
 		Usuario usuarioLogado = buscaUsuarioLogado();
 		if (usuarioLogado != null) {
-			RegistroLog novoLog = new ConstrutorDeRegistroLog(jsonApi)
+			RegistroLog novoLog = new ConstrutorDeRegistroLog()
 					.paraUsuarioLogado(usuarioLogado).paraEntidade(entidade).daAcao(acao).criar();
 			inserir(novoLog);
 		}

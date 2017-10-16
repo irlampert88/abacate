@@ -2,12 +2,13 @@ package com.univates.tcc.abacate.dominio.construtores;
 
 import java.io.File;
 import java.io.Serializable;
-import java.lang.reflect.Field;
 import java.time.LocalDateTime;
 
 import javax.persistence.Table;
 
-import com.univates.tcc.abacate.aplicacao.apis.JsonApi;
+import com.google.gson.ExclusionStrategy;
+import com.google.gson.FieldAttributes;
+import com.google.gson.GsonBuilder;
 import com.univates.tcc.abacate.dominio.agregadores.Acoes;
 import com.univates.tcc.abacate.dominio.entidades.EntidadeAbstrata;
 import com.univates.tcc.abacate.dominio.entidades.RegistroLog;
@@ -18,10 +19,8 @@ public class ConstrutorDeRegistroLog implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private final RegistroLog log;
-	private final JsonApi jsonApi;
 	
-	public ConstrutorDeRegistroLog(JsonApi jsonApi) {
-		this.jsonApi = jsonApi;
+	public ConstrutorDeRegistroLog() {
 		this.log = new RegistroLog();
 		this.log.setDataHora(LocalDateTime.now());
 	}
@@ -34,22 +33,21 @@ public class ConstrutorDeRegistroLog implements Serializable {
 
 	private <E extends EntidadeAbstrata<?>> String jsonDaEntidade(E entidade) {
 		Object cloneDaEntidade = entidade.clone();
-		removerArquivosDaEntidade(cloneDaEntidade);
-		return jsonApi.paraJson(cloneDaEntidade);
+		return new GsonBuilder()
+				.setExclusionStrategies(new ExclusionStrategy() {
+					
+					@Override
+					public boolean shouldSkipField(FieldAttributes f) {
+						return false;
+					}
+					
+					@Override
+					public boolean shouldSkipClass(Class<?> clazz) {
+						return clazz.getCanonicalName().equals(File.class.getCanonicalName()) ? true : false;
+					}
+				})
+				.create().toJson(cloneDaEntidade);
  	}
-	
-	private void removerArquivosDaEntidade(Object cloneDaEntidade) {
-		for (Field campo : cloneDaEntidade.getClass().getDeclaredFields()) {
-			if (campo.getType().equals(File.class)) {
-				campo.setAccessible(true);
-				try {
-					campo.set(cloneDaEntidade, null);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
- 		}
-	}
 
 	private <E extends EntidadeAbstrata<?>> String buscaNomeDaTabela(E entidade) {
 		Table anotacao = entidade.getClass().getAnnotation(Table.class);
