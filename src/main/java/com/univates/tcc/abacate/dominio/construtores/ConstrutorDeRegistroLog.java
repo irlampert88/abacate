@@ -1,8 +1,6 @@
 package com.univates.tcc.abacate.dominio.construtores;
 
-import java.io.File;
 import java.io.Serializable;
-import java.sql.Blob;
 import java.time.LocalDateTime;
 
 import javax.persistence.Table;
@@ -14,6 +12,7 @@ import com.univates.tcc.abacate.dominio.agregadores.Acoes;
 import com.univates.tcc.abacate.dominio.entidades.EntidadeAbstrata;
 import com.univates.tcc.abacate.dominio.entidades.RegistroLog;
 import com.univates.tcc.abacate.dominio.entidades.Usuario;
+import com.univates.tcc.abacate.dominio.utilitarios.IdentificadorDeAnotacoes;
 
 public class ConstrutorDeRegistroLog implements Serializable {
 
@@ -39,20 +38,12 @@ public class ConstrutorDeRegistroLog implements Serializable {
 					
 					@Override
 					public boolean shouldSkipField(FieldAttributes f) {
-						if (f.getName().equals("foto"))
-							return true;
-						
-						return false;
+						return IdentificadorDeAnotacoes.possuiFoto(f.getAnnotations());
 					}
 					
 					@Override
 					public boolean shouldSkipClass(Class<?> clazz) {
-						return pularClasse(clazz) ? true : false;
-					}
-
-					private boolean pularClasse(Class<?> clazz) {
-						return clazz.getCanonicalName().equals(File.class.getCanonicalName()) ||
-								clazz.getCanonicalName().equals(Blob.class.getCanonicalName());
+						return false;
 					}
 				})
 				.create().toJson(cloneDaEntidade);

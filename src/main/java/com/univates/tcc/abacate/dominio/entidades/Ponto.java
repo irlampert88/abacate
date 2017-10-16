@@ -1,7 +1,5 @@
 package com.univates.tcc.abacate.dominio.entidades;
 
-import java.io.File;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.univates.tcc.abacate.dominio.agregadores.Foto;
 import com.univates.tcc.abacate.integracao.repositorios.ouvintes.OuvinteRegistroDeLog;
 
 @Entity
@@ -50,8 +49,9 @@ public class Ponto extends EntidadeAbstrata<Integer> {
 	@Column
 	private Integer mapaY;
 	
-	@Column(length = 4000)
-	private File foto;
+	@Column(length = 64000)
+	@Foto
+	private String foto;
 	
 	@ManyToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "tipo_servico_id", nullable = false)
@@ -147,11 +147,11 @@ public class Ponto extends EntidadeAbstrata<Integer> {
 		this.mapaY = mapaY;
 	}
 
-	public File getFoto() {
+	public String getFoto() {
 		return foto;
 	}
 
-	public void setFoto(File foto) {
+	public void setFoto(String foto) {
 		this.foto = foto;
 	}
 

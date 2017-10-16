@@ -16,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.univates.tcc.abacate.dominio.agregadores.Foto;
 import com.univates.tcc.abacate.integracao.repositorios.ouvintes.OuvinteRegistroDeLog;
 
 @Entity
@@ -50,7 +51,8 @@ public class Rack extends EntidadeAbstrata<Integer> {
 	@Column
 	private Float profundidade;
 
-	@Column(length = 4000)
+	@Column(length = 64000)
+	@Foto
 	private String foto;
 	
 	@ManyToOne(cascade = CascadeType.REFRESH)

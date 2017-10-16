@@ -1,7 +1,5 @@
 package com.univates.tcc.abacate.aplicacao.rest;
 
-import java.io.File;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,9 +31,9 @@ public class PontoRest extends CrudAbstratoRest<Ponto, Integer> {
 	@RequerAutenticacao
 	@RequerPermissao(tipoDePermissao = TipoDePermissao.CONSULTAR)
 	@RequestMapping(method=RequestMethod.GET, value = "foto/{id}")
-	public final ResponseEntity<File> buscarFoto(@PathVariable Integer id){
+	public final ResponseEntity<String> buscarFoto(@PathVariable Integer id){
 		final Ponto found = servicoDeCrud.buscarPorId(id);
-		return new ResponseEntity<File>(found.getFoto(), HttpStatus.OK);
+		return new ResponseEntity<String>(found.getFoto(), HttpStatus.OK);
 	}
 	
 }
