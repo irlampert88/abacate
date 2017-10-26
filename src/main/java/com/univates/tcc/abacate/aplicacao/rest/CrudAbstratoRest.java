@@ -4,9 +4,15 @@ import static com.univates.tcc.abacate.dominio.utilitarios.IdentificadorDeGeneri
 import static com.univates.tcc.abacate.dominio.utilitarios.IdentificadorDeGenerics.identificaClasseDeUmGeneric;
 import static com.univates.tcc.abacate.dominio.utilitarios.InstanciadorDeObjetos.criaInstancia;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.Serializable;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Collection;
 
+import org.apache.commons.io.IOUtils;
+import org.mockito.internal.util.io.IOUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.google.common.io.Files;
 import com.univates.tcc.abacate.aplicacao.rest.autorizacao.RequerAutenticacao;
 import com.univates.tcc.abacate.aplicacao.rest.permissao.RequerPermissao;
 import com.univates.tcc.abacate.aplicacao.rest.permissao.TipoDePermissao;
@@ -96,7 +103,8 @@ abstract class CrudAbstratoRest<ENTIDADE extends EntidadeAbstrata<ID>, ID extend
 		return new ResponseEntity<Iterable<ENTIDADE>>(entidadesEncontradas, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/imprimir", method=RequestMethod.POST)
+	@RequestMapping(value = "/imprimir", method=RequestMethod.POST,
+			consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
 	public final ResponseEntity<byte[]> imprimir(
 			@RequestBody ObjetoParaImpressao objetoParaImpressao, 
 			@RequestParam(name = "pagina", required = false) Integer pagina, 
@@ -106,6 +114,21 @@ abstract class CrudAbstratoRest<ENTIDADE extends EntidadeAbstrata<ID>, ID extend
 		try {
 			final byte[] arquivo = impressaoDeEntidades.gerarListaParaImpressao(objetoParaImpressao, pagina, quantidade, atributoOrdenado, ordem, servicoDeCrud);
 			return new ResponseEntity<byte[]>(arquivo, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@RequestMapping(value = "/TESTE", method=RequestMethod.GET, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+	public final ResponseEntity<File> teste(){ 
+		try {
+			final byte[] arquivo = impressaoDeEntidades.gerarListaParaImpressao(new ObjetoParaImpressao(), null, null, null, null, servicoDeCrud);
+
+			File file = File.createTempFile("impressao", "HOJE");
+//			Path path = Paths.get(file.getAbsolutePath() + (file.getAbsolutePath().endsWith(".pdf") ? "" : ".pdf"));
+			Files.write(arquivo, file);
+			
+			return new ResponseEntity<File>(file, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
