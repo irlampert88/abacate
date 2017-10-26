@@ -4,6 +4,7 @@ import static com.univates.tcc.abacate.dominio.utilitarios.IdentificadorDeGeneri
 import static com.univates.tcc.abacate.dominio.utilitarios.IdentificadorDeGenerics.identificaClasseDeUmGeneric;
 import static com.univates.tcc.abacate.dominio.utilitarios.InstanciadorDeObjetos.criaInstancia;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.Collection;
 
@@ -19,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.univates.tcc.abacate.aplicacao.rest.autorizacao.RequerAutenticacao;
 import com.univates.tcc.abacate.aplicacao.rest.permissao.RequerPermissao;
 import com.univates.tcc.abacate.aplicacao.rest.permissao.TipoDePermissao;
+import com.univates.tcc.abacate.dominio.agregadores.ObjetoParaImpressao;
 import com.univates.tcc.abacate.dominio.entidades.EntidadeAbstrata;
+import com.univates.tcc.abacate.dominio.servicos.ImpressaoDeEntidades;
 import com.univates.tcc.abacate.dominio.servicos.ServicoDeCrud;
 import com.univates.tcc.abacate.dominio.utilitarios.LimparAtributoDoObjeto;
 
@@ -28,9 +31,11 @@ import com.univates.tcc.abacate.dominio.utilitarios.LimparAtributoDoObjeto;
 abstract class CrudAbstratoRest<ENTIDADE extends EntidadeAbstrata<ID>, ID extends Serializable> {
 
 	private final ServicoDeCrud<ENTIDADE, ID> servicoDeCrud;
+	private final ImpressaoDeEntidades impressaoDeEntidades;
 	
-	public CrudAbstratoRest(ServicoDeCrud<ENTIDADE, ID> servicoDeCrud) {
+	public CrudAbstratoRest(ServicoDeCrud<ENTIDADE, ID> servicoDeCrud, ImpressaoDeEntidades impressaoDeEntidades) {
 		this.servicoDeCrud = servicoDeCrud;
+		this.impressaoDeEntidades = impressaoDeEntidades;
 	}
 	
 	@RequerAutenticacao
@@ -83,13 +88,33 @@ abstract class CrudAbstratoRest<ENTIDADE extends EntidadeAbstrata<ID>, ID extend
 	@RequestMapping(value = "/pesquisar", method=RequestMethod.POST)
 	public final ResponseEntity<Iterable<ENTIDADE>> pesquisarPeloExemplo(@
 			RequestBody ENTIDADE entity, 
-			@RequestParam(name = "pagina", required = true) Integer pagina, 
-			@RequestParam(name = "quantidade", required = true) Integer quantidade, 
+			@RequestParam(name = "pagina", required = false) Integer pagina, 
+			@RequestParam(name = "quantidade", required = false) Integer quantidade, 
 			@RequestParam(name = "atributoOrdenado", required = false) String atributoOrdenado, 
 			@RequestParam(name = "ordem", required = false, defaultValue = "asc") String ordem){
 		final Collection<ENTIDADE> entidadesEncontradas = servicoDeCrud.buscarPeloExemploComPaginacao(entity, pagina, quantidade, atributoOrdenado, ordem);
 		new LimparAtributoDoObjeto().removerArquivosDaEntidade(entidadesEncontradas);
 		return new ResponseEntity<Iterable<ENTIDADE>>(entidadesEncontradas, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/imprimir", method=RequestMethod.POST)
+	public final ResponseEntity<File> imprimir(@RequestBody ObjetoParaImpressao objetoParaImpressao){
+		try {
+			final File arquivo = impressaoDeEntidades.gerarListaParaImpressao(objetoParaImpressao, servicoDeCrud);
+			return new ResponseEntity<File>(arquivo, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@RequestMapping(value = "/imprimirTESTE", method=RequestMethod.POST)
+	public final ResponseEntity<File> imprimir(){
+		try {
+			final File arquivo = impressaoDeEntidades.gerarListaParaImpressao(new ObjetoParaImpressao(), servicoDeCrud);
+			return new ResponseEntity<File>(arquivo, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 	
 	@RequestMapping(value = "/estrutura", method=RequestMethod.GET)

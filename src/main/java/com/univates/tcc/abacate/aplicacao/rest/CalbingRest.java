@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.univates.tcc.abacate.dominio.entidades.Cabling;
 import com.univates.tcc.abacate.dominio.servicos.CablingServico;
+import com.univates.tcc.abacate.dominio.servicos.ImpressaoDeEntidades;
 
 @RestController
 @RequestMapping("/cabling")
@@ -14,8 +15,8 @@ import com.univates.tcc.abacate.dominio.servicos.CablingServico;
 public class CalbingRest extends CrudAbstratoRest<Cabling, Integer> {
 
 	@Autowired
-	public CalbingRest(CablingServico servicoDeCrud) {
-		super(servicoDeCrud);
+	public CalbingRest(CablingServico servicoDeCrud, ImpressaoDeEntidades impressaoDeEntidades) {
+		super(servicoDeCrud, impressaoDeEntidades);
 	}
 	
 }

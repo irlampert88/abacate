@@ -49,8 +49,11 @@ public class ConsultasPeloExemploHibernateImpl
 
 		Example example = Example.create(exampleEntity).enableLike(MatchMode.ANYWHERE).ignoreCase();
 		Criteria criteria = session.createCriteria(exampleEntity.getClass()).add(example);
-		criteria.setMaxResults(quantidade);
-		criteria.setFirstResult(pagina*quantidade);
+		
+		if (pagina != null && quantidade != null) {
+			criteria.setMaxResults(quantidade);
+			criteria.setFirstResult(pagina*quantidade);
+		}
 		
 		if (!StringUtils.isEmpty(atributoOrdenado) && !StringUtils.isEmpty(ordem))
 			criteria.addOrder("asc".equals(ordem) ? Order.asc(atributoOrdenado) : Order.desc(atributoOrdenado));

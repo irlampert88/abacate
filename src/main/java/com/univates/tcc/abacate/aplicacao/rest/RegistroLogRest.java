@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.univates.tcc.abacate.dominio.entidades.RegistroLog;
+import com.univates.tcc.abacate.dominio.servicos.ImpressaoDeEntidades;
 import com.univates.tcc.abacate.dominio.servicos.RegistroLogServico;
 
 @RestController
@@ -14,8 +15,8 @@ import com.univates.tcc.abacate.dominio.servicos.RegistroLogServico;
 public class RegistroLogRest extends CrudAbstratoRest<RegistroLog, Integer> {
 
 	@Autowired
-	public RegistroLogRest(RegistroLogServico servicoDeCrud) {
-		super(servicoDeCrud);
+	public RegistroLogRest(RegistroLogServico servicoDeCrud, ImpressaoDeEntidades impressaoDeEntidades) {
+		super(servicoDeCrud, impressaoDeEntidades);
 	}
 	
 }

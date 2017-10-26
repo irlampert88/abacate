@@ -18,6 +18,7 @@ import com.univates.tcc.abacate.aplicacao.rest.permissao.RequerPermissao;
 import com.univates.tcc.abacate.aplicacao.rest.permissao.TipoDePermissao;
 import com.univates.tcc.abacate.dominio.entidades.Permissao;
 import com.univates.tcc.abacate.dominio.entidades.Usuario;
+import com.univates.tcc.abacate.dominio.servicos.ImpressaoDeEntidades;
 import com.univates.tcc.abacate.dominio.servicos.PermissaoServico;
 import com.univates.tcc.abacate.dominio.servicos.UsuarioServico;
 
@@ -31,8 +32,8 @@ public class UsuarioRest extends CrudAbstratoRest<Usuario, Integer> {
 	private PermissaoServico permissaoServico;
 
 	@Autowired
-	public UsuarioRest(UsuarioServico servicoDeCrud, PermissaoServico permissaoServico) {
-		super(servicoDeCrud);
+	public UsuarioRest(UsuarioServico servicoDeCrud, PermissaoServico permissaoServico, ImpressaoDeEntidades impressaoDeEntidades) {
+		super(servicoDeCrud, impressaoDeEntidades);
 		this.usuarioServico = servicoDeCrud;
 		this.permissaoServico = permissaoServico;
 	}

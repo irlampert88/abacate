@@ -13,6 +13,7 @@ import com.univates.tcc.abacate.aplicacao.rest.autorizacao.RequerAutenticacao;
 import com.univates.tcc.abacate.aplicacao.rest.permissao.RequerPermissao;
 import com.univates.tcc.abacate.aplicacao.rest.permissao.TipoDePermissao;
 import com.univates.tcc.abacate.dominio.entidades.Ponto;
+import com.univates.tcc.abacate.dominio.servicos.ImpressaoDeEntidades;
 import com.univates.tcc.abacate.dominio.servicos.PontoServico;
 
 @RestController
@@ -23,8 +24,8 @@ public class PontoRest extends CrudAbstratoRest<Ponto, Integer> {
 	private PontoServico servicoDeCrud;
 
 	@Autowired
-	public PontoRest(PontoServico servicoDeCrud) {
-		super(servicoDeCrud);
+	public PontoRest(PontoServico servicoDeCrud, ImpressaoDeEntidades impressaoDeEntidades) {
+		super(servicoDeCrud, impressaoDeEntidades);
 		this.servicoDeCrud = servicoDeCrud;
 	}
 	

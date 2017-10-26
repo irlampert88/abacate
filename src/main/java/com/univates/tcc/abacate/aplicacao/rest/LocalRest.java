@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.univates.tcc.abacate.dominio.entidades.Local;
+import com.univates.tcc.abacate.dominio.servicos.ImpressaoDeEntidades;
 import com.univates.tcc.abacate.dominio.servicos.LocalServico;
 
 @RestController
@@ -14,8 +15,8 @@ import com.univates.tcc.abacate.dominio.servicos.LocalServico;
 public class LocalRest extends CrudAbstratoRest<Local, Integer> {
 
 	@Autowired
-	public LocalRest(LocalServico servicoDeCrud) {
-		super(servicoDeCrud);
+	public LocalRest(LocalServico servicoDeCrud, ImpressaoDeEntidades impressaoDeEntidades) {
+		super(servicoDeCrud, impressaoDeEntidades);
 	}
 	
 }

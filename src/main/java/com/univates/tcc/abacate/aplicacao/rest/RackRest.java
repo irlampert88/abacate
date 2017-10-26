@@ -13,6 +13,7 @@ import com.univates.tcc.abacate.aplicacao.rest.autorizacao.RequerAutenticacao;
 import com.univates.tcc.abacate.aplicacao.rest.permissao.RequerPermissao;
 import com.univates.tcc.abacate.aplicacao.rest.permissao.TipoDePermissao;
 import com.univates.tcc.abacate.dominio.entidades.Rack;
+import com.univates.tcc.abacate.dominio.servicos.ImpressaoDeEntidades;
 import com.univates.tcc.abacate.dominio.servicos.RackServico;
 
 @RestController
@@ -23,8 +24,8 @@ public class RackRest extends CrudAbstratoRest<Rack, Integer> {
 	private RackServico servicoDeCrud;
 
 	@Autowired
-	public RackRest(RackServico servicoDeCrud) {
-		super(servicoDeCrud);
+	public RackRest(RackServico servicoDeCrud, ImpressaoDeEntidades impressaoDeEntidades) {
+		super(servicoDeCrud, impressaoDeEntidades);
 		this.servicoDeCrud = servicoDeCrud;
 	}
 	
