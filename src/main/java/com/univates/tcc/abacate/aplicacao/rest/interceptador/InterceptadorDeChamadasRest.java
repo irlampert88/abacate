@@ -9,6 +9,7 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.univates.tcc.abacate.aplicacao.configuracoes.ConstantesDeConfiguracao;
 import com.univates.tcc.abacate.aplicacao.rest.autorizacao.GerenciadorDeAutenticacao;
 import com.univates.tcc.abacate.aplicacao.rest.permissao.GerenciadorDePermissoes;
 import com.univates.tcc.abacate.dominio.entidades.Usuario;
@@ -31,6 +32,9 @@ public class InterceptadorDeChamadasRest implements HandlerInterceptor {
 			return true;
 		
 		HandlerMethod handlerMethod = (HandlerMethod) handler;
+		
+		if (!handlerMethod.getBeanType().getCanonicalName().startsWith(ConstantesDeConfiguracao.Pacotes.PREFIXO))
+			return true;
 
 		Usuario usuarioDoToken = gerenciadorDeAutenticacao.autenticarToken(request, handlerMethod);
 		gerenciadorDePermissoes.validarSeUsuarioPossuiPermissao(request, handlerMethod, usuarioDoToken);

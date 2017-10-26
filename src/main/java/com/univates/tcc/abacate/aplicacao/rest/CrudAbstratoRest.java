@@ -4,7 +4,6 @@ import static com.univates.tcc.abacate.dominio.utilitarios.IdentificadorDeGeneri
 import static com.univates.tcc.abacate.dominio.utilitarios.IdentificadorDeGenerics.identificaClasseDeUmGeneric;
 import static com.univates.tcc.abacate.dominio.utilitarios.InstanciadorDeObjetos.criaInstancia;
 
-import java.io.File;
 import java.io.Serializable;
 import java.util.Collection;
 
@@ -98,20 +97,15 @@ abstract class CrudAbstratoRest<ENTIDADE extends EntidadeAbstrata<ID>, ID extend
 	}
 	
 	@RequestMapping(value = "/imprimir", method=RequestMethod.POST)
-	public final ResponseEntity<File> imprimir(@RequestBody ObjetoParaImpressao objetoParaImpressao){
+	public final ResponseEntity<byte[]> imprimir(
+			@RequestBody ObjetoParaImpressao objetoParaImpressao, 
+			@RequestParam(name = "pagina", required = false) Integer pagina, 
+			@RequestParam(name = "quantidade", required = false) Integer quantidade, 
+			@RequestParam(name = "atributoOrdenado", required = false) String atributoOrdenado, 
+			@RequestParam(name = "ordem", required = false, defaultValue = "asc") String ordem){
 		try {
-			final File arquivo = impressaoDeEntidades.gerarListaParaImpressao(objetoParaImpressao, servicoDeCrud);
-			return new ResponseEntity<File>(arquivo, HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
-	
-	@RequestMapping(value = "/imprimirTESTE", method=RequestMethod.POST)
-	public final ResponseEntity<File> imprimir(){
-		try {
-			final File arquivo = impressaoDeEntidades.gerarListaParaImpressao(new ObjetoParaImpressao(), servicoDeCrud);
-			return new ResponseEntity<File>(arquivo, HttpStatus.OK);
+			final byte[] arquivo = impressaoDeEntidades.gerarListaParaImpressao(objetoParaImpressao, pagina, quantidade, atributoOrdenado, ordem, servicoDeCrud);
+			return new ResponseEntity<byte[]>(arquivo, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}

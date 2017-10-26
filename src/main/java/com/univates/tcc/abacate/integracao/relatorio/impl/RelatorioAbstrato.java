@@ -23,20 +23,7 @@ abstract class RelatorioAbstrato {
 	abstract void gerarCabecalho(PdfStamper stamper, int pagina, Integer numeroPaginas) throws Exception;
 	abstract void gerarConteudo(Document documento) throws DocumentException;
 
-	final File criarArquivo() throws Exception {
-		File file = createFile();
-		return Files.write(pathFromFile(file), reportFile()).toFile();
-	}
-
-	private File createFile() throws IOException {
-		return File.createTempFile("impressao", "HOJE");
-	}
-
-	private Path pathFromFile(File file) {
-		return Paths.get(file.getAbsolutePath() + (file.getAbsolutePath().endsWith(".pdf") ? "" : ".pdf"));
-	}
-
-	private byte[] reportFile() throws Exception {
+	final byte[] criarArquivo() throws Exception {
 		Document document = new Document(PageSize.A4, 20, 20, 80, 40);
 
 		ByteArrayOutputStream buffer = new ByteArrayOutputStream();

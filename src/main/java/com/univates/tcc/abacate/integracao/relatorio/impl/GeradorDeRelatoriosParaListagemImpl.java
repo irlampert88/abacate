@@ -3,6 +3,8 @@ package com.univates.tcc.abacate.integracao.relatorio.impl;
 import java.io.File;
 import java.io.Serializable;
 
+import org.springframework.stereotype.Component;
+
 import static com.itextpdf.text.Element.ALIGN_LEFT;
 import static com.itextpdf.text.Element.ALIGN_TOP;
 import static com.itextpdf.text.pdf.ColumnText.showTextAligned;
@@ -17,12 +19,13 @@ import com.itextpdf.text.pdf.draw.LineSeparator;
 import com.univates.tcc.abacate.dominio.entidades.EntidadeAbstrata;
 import com.univates.tcc.abacate.integracao.relatorio.GeradorDeRelatorioParaListagem;
 
+@Component
 public class GeradorDeRelatoriosParaListagemImpl
 	extends RelatorioAbstrato
 		implements GeradorDeRelatorioParaListagem {
 
 	@Override
-	public <E extends EntidadeAbstrata<ID>, ID extends Serializable> File gerar(Iterable<String> atributosParaListar,
+	public <E extends EntidadeAbstrata<ID>, ID extends Serializable> byte[] gerar(Iterable<String> atributosParaListar,
 			Iterable<E> entidadesParaImpressao) throws Exception {
 		return criarArquivo();
 	}
