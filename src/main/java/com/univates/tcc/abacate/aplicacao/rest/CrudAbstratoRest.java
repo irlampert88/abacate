@@ -110,20 +110,25 @@ abstract class CrudAbstratoRest<ENTIDADE extends EntidadeAbstrata<ID>, ID extend
 		return new ResponseEntity<Iterable<ENTIDADE>>(entidadesEncontradas, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/imprimir", method=RequestMethod.POST,
-			consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-	public final ResponseEntity<byte[]> imprimir(
+	@RequestMapping(value = "/", method=RequestMethod.POST,
+			 consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+	public final ResponseEntity<InputStreamResource> imprimir(
 			@RequestBody ObjetoParaImpressao objetoParaImpressao, 
 			@RequestParam(name = "pagina", required = false) Integer pagina, 
 			@RequestParam(name = "quantidade", required = false) Integer quantidade, 
 			@RequestParam(name = "atributoOrdenado", required = false) String atributoOrdenado, 
-			@RequestParam(name = "ordem", required = false, defaultValue = "asc") String ordem){
-		try {
-			final byte[] arquivo = impressaoDeEntidades.gerarListaParaImpressao(objetoParaImpressao, pagina, quantidade, atributoOrdenado, ordem, servicoDeCrud);
-			return new ResponseEntity<byte[]>(arquivo, HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+			@RequestParam(name = "ordem", required = false, defaultValue = "asc") String ordem) throws Exception{
+
+		final byte[] arquivo = impressaoDeEntidades.gerarListaParaImpressao(objetoParaImpressao, pagina, quantidade, atributoOrdenado, ordem, servicoDeCrud);
+		File arquivoPdf = File.createTempFile("Abacate", String.valueOf(System.currentTimeMillis()));
+		Files.write(arquivo, arquivoPdf);
+		
+		return ResponseEntity
+	            .ok()
+	            .contentLength(arquivoPdf.length())
+	            .contentType(
+	                    MediaType.parseMediaType("application/pdf"))
+	            .body(new InputStreamResource(new FileInputStream(arquivoPdf)));
 	}
 	
 	@RequestMapping(value = "/estrutura", method=RequestMethod.GET)

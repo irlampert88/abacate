@@ -1,6 +1,5 @@
 package com.univates.tcc.abacate.dominio.servicos.impl;
 
-import java.io.File;
 import java.io.Serializable;
 
 import org.springframework.beans.factory.annotation.Autowired;
