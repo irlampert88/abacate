@@ -21,7 +21,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 abstract class RelatorioAbstrato {
 	
 	abstract void gerarCabecalho(PdfStamper stamper, int pagina, Integer numeroPaginas) throws Exception;
-	abstract void gerarConteudo(Document documento) throws DocumentException;
+	abstract void gerarConteudo(Document documento) throws Exception;
 
 	final byte[] criarArquivo() throws Exception {
 		Document document = new Document(PageSize.A4, 20, 20, 80, 40);

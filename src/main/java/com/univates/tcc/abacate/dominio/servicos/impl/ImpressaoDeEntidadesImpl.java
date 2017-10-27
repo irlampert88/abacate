@@ -26,7 +26,7 @@ public class ImpressaoDeEntidadesImpl
 		
 		Iterable<E> entidadesParaImpressao = obtemListaDeRegistros(objetoParaImpressao.getEntidadeDeExemplo(), pagina, quantidade, atributoOrdenado, ordem, servicoDeCrud);
 		
-		return geradorDeRelatorioParaListagem.gerar(objetoParaImpressao.getAtributos(), entidadesParaImpressao);
+		return geradorDeRelatorioParaListagem.gerar(objetoParaImpressao.getAtributos(), objetoParaImpressao.getTitulos(), entidadesParaImpressao);
 	}
 
 	private <E extends EntidadeAbstrata<ID>, ID extends Serializable> Iterable<E> obtemListaDeRegistros(

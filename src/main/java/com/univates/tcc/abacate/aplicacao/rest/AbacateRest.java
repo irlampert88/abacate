@@ -2,7 +2,6 @@ package com.univates.tcc.abacate.aplicacao.rest;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -18,9 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.google.common.io.Files;
 import com.univates.tcc.abacate.dominio.agregadores.ObjetoParaImpressao;
-import com.univates.tcc.abacate.dominio.entidades.Marca;
+import com.univates.tcc.abacate.dominio.entidades.RegistroLog;
 import com.univates.tcc.abacate.dominio.servicos.ImpressaoDeEntidades;
-import com.univates.tcc.abacate.dominio.servicos.MarcaServico;
+import com.univates.tcc.abacate.dominio.servicos.RegistroLogServico;
 
 @RestController
 @RequestMapping("/")
@@ -28,10 +27,10 @@ import com.univates.tcc.abacate.dominio.servicos.MarcaServico;
 public class AbacateRest {
 	
 	private ImpressaoDeEntidades impressaoDeEntidades;
-	private MarcaServico servicoDeCrud;
+	private RegistroLogServico servicoDeCrud;
 
 	@Autowired
-	public AbacateRest(ImpressaoDeEntidades impressaoDeEntidades, MarcaServico servicoDeCrud) {
+	public AbacateRest(ImpressaoDeEntidades impressaoDeEntidades, RegistroLogServico servicoDeCrud) {
 		this.impressaoDeEntidades = impressaoDeEntidades;
 		this.servicoDeCrud = servicoDeCrud;
 	}
@@ -40,8 +39,11 @@ public class AbacateRest {
 	public ResponseEntity<InputStreamResource> downloadPdf() throws Exception {
 		
 		ObjetoParaImpressao objetoParaImpressao = new ObjetoParaImpressao();
-		objetoParaImpressao.setEntidadeDeExemplo(new Marca());
-		objetoParaImpressao.setAtributos(Arrays.asList("id", "descricao"));
+		RegistroLog exemplo = new RegistroLog();
+//		exemplo.setTabela("marcas");
+		objetoParaImpressao.setEntidadeDeExemplo(exemplo);
+		objetoParaImpressao.setTitulos(Arrays.asList("Id", "Tabela", "Ação", "Usuário", "Data e Hora"));
+		objetoParaImpressao.setAtributos(Arrays.asList("id", "tabela", "acao", "usuario.nome", "dataHora"));
 		
 		final byte[] arquivo = impressaoDeEntidades.gerarListaParaImpressao(objetoParaImpressao, null, null, null, null, servicoDeCrud);
 		File arquivoPdf = File.createTempFile("Abacate", String.valueOf(System.currentTimeMillis()));
