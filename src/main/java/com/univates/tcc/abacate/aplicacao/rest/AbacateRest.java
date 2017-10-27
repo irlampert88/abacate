@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.common.io.Files;
+import com.google.gson.Gson;
 import com.univates.tcc.abacate.dominio.agregadores.ObjetoParaImpressao;
 import com.univates.tcc.abacate.dominio.entidades.RegistroLog;
 import com.univates.tcc.abacate.dominio.servicos.ImpressaoDeEntidades;
@@ -34,13 +35,24 @@ public class AbacateRest {
 		this.impressaoDeEntidades = impressaoDeEntidades;
 		this.servicoDeCrud = servicoDeCrud;
 	}
+	
+	public static void main(String[] args) {
+		ObjetoParaImpressao objetoParaImpressao = new ObjetoParaImpressao();
+		RegistroLog exemplo = new RegistroLog();
+		exemplo.setTabela("marcas");
+		objetoParaImpressao.setEntidadeDeExemplo(exemplo);
+		objetoParaImpressao.setTitulos(Arrays.asList("Id", "Tabela", "Ação", "Usuário", "Data e Hora"));
+		objetoParaImpressao.setAtributos(Arrays.asList("id", "tabela", "acao", "usuario.nome", "dataHora"));
+		
+		System.out.println(new Gson().toJson(objetoParaImpressao));
+	}
 
 	@RequestMapping(value="/pdf", method = RequestMethod.GET, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
 	public ResponseEntity<InputStreamResource> downloadPdf() throws Exception {
 		
 		ObjetoParaImpressao objetoParaImpressao = new ObjetoParaImpressao();
 		RegistroLog exemplo = new RegistroLog();
-//		exemplo.setTabela("marcas");
+		exemplo.setTabela("marcas");
 		objetoParaImpressao.setEntidadeDeExemplo(exemplo);
 		objetoParaImpressao.setTitulos(Arrays.asList("Id", "Tabela", "Ação", "Usuário", "Data e Hora"));
 		objetoParaImpressao.setAtributos(Arrays.asList("id", "tabela", "acao", "usuario.nome", "dataHora"));
