@@ -36,17 +36,6 @@ public class AbacateRest {
 		this.servicoDeCrud = servicoDeCrud;
 	}
 	
-	public static void main(String[] args) {
-		ObjetoParaImpressao objetoParaImpressao = new ObjetoParaImpressao();
-		RegistroLog exemplo = new RegistroLog();
-		exemplo.setTabela("marcas");
-		objetoParaImpressao.setEntidadeDeExemplo(exemplo);
-		objetoParaImpressao.setTitulos(Arrays.asList("Id", "Tabela", "Ação", "Usuário", "Data e Hora"));
-		objetoParaImpressao.setAtributos(Arrays.asList("id", "tabela", "acao", "usuario.nome", "dataHora"));
-		
-		System.out.println(new Gson().toJson(objetoParaImpressao));
-	}
-
 	@RequestMapping(value="/pdf", method = RequestMethod.GET, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
 	public ResponseEntity<InputStreamResource> downloadPdf() throws Exception {
 		
@@ -72,8 +61,14 @@ public class AbacateRest {
 	
 	@RequestMapping(value="/", method = RequestMethod.GET)
 	public String index() {
-		return "{\"entidadeDeExemplo\":{\"tabela\":\"marcas\"},\"titulos\":[\"Id\",\"Tabela\",\"Ação\",\"Usuário\",\"Data e Hora\"],\"atributos\":[\"id\",\"tabela\",\"acao\",\"usuario.nome\",\"dataHora\"]}\r\n" + 
-				"";
+		ObjetoParaImpressao objetoParaImpressao = new ObjetoParaImpressao();
+		RegistroLog exemplo = new RegistroLog();
+		exemplo.setTabela("marcas");
+		objetoParaImpressao.setEntidadeDeExemplo(exemplo);
+		objetoParaImpressao.setTitulos(Arrays.asList("Id", "Tabela", "Ação", "Usuário", "Data e Hora"));
+		objetoParaImpressao.setAtributos(Arrays.asList("id", "tabela", "acao", "usuario.nome", "dataHora"));
+		return new Gson().toJson(objetoParaImpressao);
+		
 //		return "Bem vindo ao Abacate V1.0.0 ! [ " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss.SSS")) + " ]";
 	}
 
