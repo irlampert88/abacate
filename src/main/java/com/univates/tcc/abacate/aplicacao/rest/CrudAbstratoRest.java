@@ -110,7 +110,7 @@ abstract class CrudAbstratoRest<ENTIDADE extends EntidadeAbstrata<ID>, ID extend
 		return new ResponseEntity<Iterable<ENTIDADE>>(entidadesEncontradas, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/", method=RequestMethod.POST,
+	@RequestMapping(value = "/pdf", method=RequestMethod.POST,
 			 consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
 	public final ResponseEntity<InputStreamResource> imprimir(
 			@RequestBody ObjetoParaImpressao objetoParaImpressao, 
