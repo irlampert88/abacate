@@ -72,7 +72,9 @@ public class AbacateRest {
 	
 	@RequestMapping(value="/", method = RequestMethod.GET)
 	public String index() {
-		return "Bem vindo ao Abacate V1.0.0 ! [ " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss.SSS")) + " ]";
+		return "{\"entidadeDeExemplo\":{\"tabela\":\"marcas\"},\"titulos\":[\"Id\",\"Tabela\",\"Ação\",\"Usuário\",\"Data e Hora\"],\"atributos\":[\"id\",\"tabela\",\"acao\",\"usuario.nome\",\"dataHora\"]}\r\n" + 
+				"";
+//		return "Bem vindo ao Abacate V1.0.0 ! [ " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss.SSS")) + " ]";
 	}
 
 }
