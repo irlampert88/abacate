@@ -41,7 +41,7 @@ public class Solicitacao extends EntidadeAbstrata<Integer> {
 	private LocalDateTime fechamento;
 	
 	@ManyToOne(cascade = CascadeType.REFRESH)
-	@JoinColumn(name = "responsavel_fechamento_id", nullable = false)
+	@JoinColumn(name = "responsavel_fechamento_id", nullable = true)
 	private Usuario responsavelFechamento;
 	
 	@Column

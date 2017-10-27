@@ -5,14 +5,21 @@ import static com.univates.tcc.abacate.dominio.utilitarios.IdentificadorDeGeneri
 import static com.univates.tcc.abacate.dominio.utilitarios.InstanciadorDeObjetos.criaInstancia;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collection;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.io.IOUtils;
 import org.mockito.internal.util.io.IOUtil;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -114,21 +121,6 @@ abstract class CrudAbstratoRest<ENTIDADE extends EntidadeAbstrata<ID>, ID extend
 		try {
 			final byte[] arquivo = impressaoDeEntidades.gerarListaParaImpressao(objetoParaImpressao, pagina, quantidade, atributoOrdenado, ordem, servicoDeCrud);
 			return new ResponseEntity<byte[]>(arquivo, HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
-	
-	@RequestMapping(value = "/TESTE", method=RequestMethod.GET, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-	public final ResponseEntity<File> teste(){ 
-		try {
-			final byte[] arquivo = impressaoDeEntidades.gerarListaParaImpressao(new ObjetoParaImpressao(), null, null, null, null, servicoDeCrud);
-
-			File file = File.createTempFile("impressao", "HOJE");
-//			Path path = Paths.get(file.getAbsolutePath() + (file.getAbsolutePath().endsWith(".pdf") ? "" : ".pdf"));
-			Files.write(arquivo, file);
-			
-			return new ResponseEntity<File>(file, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
