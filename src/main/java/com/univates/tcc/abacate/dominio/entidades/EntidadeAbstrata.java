@@ -16,6 +16,9 @@ public abstract class EntidadeAbstrata<ID extends Serializable>
 	
 	private static final long serialVersionUID = 1L;
 	
+	public EntidadeAbstrata() {
+	}
+	
 	/** 
 	 * @see OptimisticLock
 	 */

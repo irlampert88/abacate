@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.univates.tcc.abacate.dominio.agregadores.ObjetoParaImpressao;
 import com.univates.tcc.abacate.dominio.entidades.EntidadeAbstrata;
+import com.univates.tcc.abacate.dominio.entidades.ObjetoAbstrato;
 import com.univates.tcc.abacate.dominio.servicos.ImpressaoDeEntidades;
 import com.univates.tcc.abacate.dominio.servicos.ServicoDeCrud;
 import com.univates.tcc.abacate.integracao.relatorio.GeradorDeRelatorioParaListagem;
@@ -29,8 +30,7 @@ public class ImpressaoDeEntidadesImpl
 		return geradorDeRelatorioParaListagem.gerar(objetoParaImpressao.getAtributos(), objetoParaImpressao.getTitulos(), entidadesParaImpressao);
 	}
 
-	private <E extends EntidadeAbstrata<ID>, ID extends Serializable> Iterable<E> obtemListaDeRegistros(
-			EntidadeAbstrata<?> entidadeAbstrata, Integer pagina, Integer quantidade,
+	private <E extends EntidadeAbstrata<ID>, ID extends Serializable> Iterable<E> obtemListaDeRegistros(EntidadeAbstrata entidadeAbstrata, Integer pagina, Integer quantidade,
 			String atributoOrdenado, String ordem, ServicoDeCrud<E, ID> servicoDeCrud) {
 
 		final boolean comPaginacao = pagina != null && quantidade != null;

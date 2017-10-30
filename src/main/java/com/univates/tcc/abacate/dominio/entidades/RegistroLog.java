@@ -22,6 +22,9 @@ public class RegistroLog
 
 	private static final long serialVersionUID = 1L;
 
+	public RegistroLog() {
+	}
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
