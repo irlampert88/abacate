@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.2.1" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+  <interface id="1" language="java" name="com.univates.tcc.abacate.integracao.relatorio.GeradorDeRelatorioParaListagem" 
+    project="abacate" 
+    file="/abacate/src/main/java/com/univates/tcc/abacate/integracao/relatorio/GeradorDeRelatorioParaListagem.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="81" width="299" x="3486" y="844"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="2" language="java" name="com.univates.tcc.abacate.aplicacao.inicio.Inicializador" project="abacate" 
+    file="/abacate/src/main/java/com/univates/tcc/abacate/aplicacao/inicio/Inicializador.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="153" width="221" x="73" y="206"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="com.univates.tcc.abacate.aplicacao.rest.interceptador.CORSFilter" 
+    project="abacate" 
+    file="/abacate/src/main/java/com/univates/tcc/abacate/aplicacao/rest/interceptador/CORSFilter.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="153" width="305" x="334" y="206"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="com.univates.tcc.abacate.integracao.relatorio.impl.RelatorioAbstrato" 
+    project="abacate" 
+    file="/abacate/src/main/java/com/univates/tcc/abacate/integracao/relatorio/impl/RelatorioAbstrato.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="171" width="258" x="2639" y="206"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="com.univates.tcc.abacate.dominio.servicos.impl.ServicoDeCrudImpl" 
+    project="abacate" 
+    file="/abacate/src/main/java/com/univates/tcc/abacate/dominio/servicos/impl/ServicoDeCrudImpl.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="243" width="404" x="1567" y="206"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" 
+    name="com.univates.tcc.abacate.integracao.relatorio.impl.GeradorDeRelatoriosParaListagemImpl" project="abacate" 
+    file="/abacate/src/main/java/com/univates/tcc/abacate/integracao/relatorio/impl/GeradorDeRelatoriosParaListagemImpl.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="315" width="350" x="2809" y="489"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="7" language="java" 
+    name="com.univates.tcc.abacate.integracao.repositorios.agregadores.RepositorioDeCrud" project="abacate" 
+    file="/abacate/src/main/java/com/univates/tcc/abacate/integracao/repositorios/agregadores/RepositorioDeCrud.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="63" width="270" x="1257" y="489"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="8" language="java" name="com.univates.tcc.abacate.dominio.servicos.MarcaServico" project="abacate" 
+    file="/abacate/src/main/java/com/univates/tcc/abacate/dominio/servicos/MarcaServico.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="63" width="193" x="1966" y="844"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="9" language="java" name="com.univates.tcc.abacate.dominio.entidades.EntidadeAbstrata" project="abacate" 
+    file="/abacate/src/main/java/com/univates/tcc/abacate/dominio/entidades/EntidadeAbstrata.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="153" width="197" x="4443" y="489"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="com.univates.tcc.abacate.aplicacao.rest.MarcaRest" project="abacate" 
+    file="/abacate/src/main/java/com/univates/tcc/abacate/aplicacao/rest/MarcaRest.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="81" width="266" x="3199" y="489"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="11" language="java" name="com.univates.tcc.abacate.dominio.entidades.Marca" project="abacate" 
+    file="/abacate/src/main/java/com/univates/tcc/abacate/dominio/entidades/Marca.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="207" width="197" x="4443" y="844"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="12" language="java" name="com.univates.tcc.abacate.dominio.repositorios.MarcaRepositorio" 
+    project="abacate" file="/abacate/src/main/java/com/univates/tcc/abacate/dominio/repositorios/MarcaRepositorio.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="63" width="205" x="1257" y="844"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="13" language="java" 
+    name="com.univates.tcc.abacate.integracao.repositorios.impl.hibernate.ConsultasPeloExemploHibernateImpl" 
+    project="abacate" 
+    file="/abacate/src/main/java/com/univates/tcc/abacate/integracao/repositorios/impl/hibernate/ConsultasPeloExemploHibernateImpl.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="153" width="404" x="2011" y="206"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="14" language="java" name="com.univates.tcc.abacate.dominio.servicos.impl.ImpressaoDeEntidadesImpl" 
+    project="abacate" 
+    file="/abacate/src/main/java/com/univates/tcc/abacate/dominio/servicos/impl/ImpressaoDeEntidadesImpl.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="135" width="526" x="3486" y="206"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="15" language="java" name="com.univates.tcc.abacate.aplicacao.rest.AbacateRest" project="abacate" 
+    file="/abacate/src/main/java/com/univates/tcc/abacate/aplicacao/rest/AbacateRest.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="99" width="180" x="679" y="206"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="16" language="java" name="com.univates.tcc.abacate.dominio.servicos.ServicoDeCrud" project="abacate" 
+    file="/abacate/src/main/java/com/univates/tcc/abacate/dominio/servicos/ServicoDeCrud.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="225" width="404" x="2365" y="489"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="17" language="java" name="com.univates.tcc.abacate.aplicacao.rest.permissao.GerenciadorDePermissoes" 
+    project="abacate" 
+    file="/abacate/src/main/java/com/univates/tcc/abacate/aplicacao/rest/permissao/GerenciadorDePermissoes.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="135" width="447" x="412" y="489"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="18" language="java" name="com.univates.tcc.abacate.dominio.servicos.ImpressaoDeEntidades" 
+    project="abacate" file="/abacate/src/main/java/com/univates/tcc/abacate/dominio/servicos/ImpressaoDeEntidades.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="81" width="526" x="3526" y="489"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="19" language="java" name="com.univates.tcc.abacate.aplicacao.rest.autorizacao.GerenciadorDeAutenticacao" 
+    project="abacate" 
+    file="/abacate/src/main/java/com/univates/tcc/abacate/aplicacao/rest/autorizacao/GerenciadorDeAutenticacao.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="135" width="318" x="899" y="489"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="20" language="java" 
+    name="com.univates.tcc.abacate.aplicacao.rest.interceptador.InterceptadorDeChamadasRest" project="abacate" 
+    file="/abacate/src/main/java/com/univates/tcc/abacate/aplicacao/rest/interceptador/InterceptadorDeChamadasRest.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="135" width="453" x="899" y="206"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="21" language="java" name="com.univates.tcc.abacate.aplicacao.rest.CrudAbstratoRest" project="abacate" 
+    file="/abacate/src/main/java/com/univates/tcc/abacate/aplicacao/rest/CrudAbstratoRest.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="207" width="509" x="2937" y="206"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="22" language="java" name="com.univates.tcc.abacate.aplicacao.rest.PdfRest" project="abacate" 
+    file="/abacate/src/main/java/com/univates/tcc/abacate/aplicacao/rest/PdfRest.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="135" width="351" x="4052" y="206"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="23" language="java" name="com.univates.tcc.abacate.dominio.servicos.impl.MarcaServicoImpl" 
+    project="abacate" file="/abacate/src/main/java/com/univates/tcc/abacate/dominio/servicos/impl/MarcaServicoImpl.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="81" width="314" x="1567" y="489"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="24" language="java" name="com.univates.tcc.abacate.dominio.entidades.ObjetoAbstrato" project="abacate" 
+    file="/abacate/src/main/java/com/univates/tcc/abacate/dominio/entidades/ObjetoAbstrato.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="189" width="197" x="4443" y="206"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="25" language="java" 
+    name="com.univates.tcc.abacate.integracao.repositorios.agregadores.ConsultasPeloExemplo" project="abacate" 
+    file="/abacate/src/main/java/com/univates/tcc/abacate/integracao/repositorios/agregadores/ConsultasPeloExemplo.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="404" x="1921" y="489"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <generalization id="26">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="16"/>  
+  </generalization>  
+  <generalization id="27">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="9"/>  
+  </generalization>  
+  <association id="28">    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="29" name="impressaoDeEntidades"/>      
+      <multiplicity id="30" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="31">    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="5"/>  
+  </generalization>  
+  <association id="32">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="33" name="consultaPeloExemplo"/>      
+      <multiplicity id="34" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="25" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="35">    
+    <bendpoint x="3495" y="489"/>    
+    <end type="SOURCE" refId="14" navigable="false">      
+      <attribute id="36" name="geradorDeRelatorioParaListagem"/>      
+      <multiplicity id="37" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="38">    
+    <end type="SOURCE" refId="22" navigable="false">      
+      <attribute id="39" name="impressaoDeEntidades"/>      
+      <multiplicity id="40" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="41">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="1"/>  
+  </realization>  
+  <generalization id="42">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="24"/>  
+  </generalization>  
+  <association id="43">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="44" name="repositorio"/>      
+      <multiplicity id="45" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="46">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="16"/>  
+  </realization>  
+  <realization id="47">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="25"/>  
+  </realization>  
+  <realization id="48">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="18"/>  
+  </realization>  
+  <association id="49">    
+    <end type="SOURCE" refId="20" navigable="false">      
+      <attribute id="50" name="gerenciadorDePermissoes"/>      
+      <multiplicity id="51" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="52">    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="8"/>  
+  </realization>  
+  <generalization id="53">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="21"/>  
+  </generalization>  
+  <generalization id="54">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="4"/>  
+  </generalization>  
+  <association id="55">    
+    <end type="SOURCE" refId="20" navigable="false">      
+      <attribute id="56" name="gerenciadorDeAutenticacao"/>      
+      <multiplicity id="57" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="19" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="58">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="7"/>  
+  </generalization>  
+  <association id="59">    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="60" name="servicoDeCrud"/>      
+      <multiplicity id="61" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
