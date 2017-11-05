@@ -16,7 +16,7 @@ public class ObjetoParaImpressao
 	private static final long serialVersionUID = 1L;
 
 	private EntidadeAbstrata entidadeDeExemplo;
-//	private String classeDaEntidade;
+	private String nomeRelatorio;
 	private Collection<String> titulos;
 	private Collection<String> atributos;
 	private Integer pagina;
@@ -82,13 +82,12 @@ public class ObjetoParaImpressao
 	public void setOrdem(String ordem) {
 		this.ordem = ordem;
 	}
+
+	public String getNomeRelatorio() {
+		return nomeRelatorio;
+	}
 	
-//	public String getClasseDaEntidade() {
-//		return classeDaEntidade;
-//	}
-	
-//	public void setClasseDaEntidade(String classeDaEntidade) {
-//		this.classeDaEntidade = classeDaEntidade;
-//	}
-	
+	public void setNomeRelatorio(String nomeRelatorio) {
+		this.nomeRelatorio = nomeRelatorio;
+	}
 }

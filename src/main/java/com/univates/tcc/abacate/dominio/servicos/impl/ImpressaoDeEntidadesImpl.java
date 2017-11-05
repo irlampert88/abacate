@@ -24,11 +24,11 @@ public class ImpressaoDeEntidadesImpl
 	
 	@Override
 	public <E extends EntidadeAbstrata<ID>, ID extends Serializable> File gerarListaParaImpressao(ObjetoParaImpressao objetoParaImpressao,
-			Integer pagina, Integer quantidade, String atributoOrdenado, String ordem, ServicoDeCrud<E, ID> servicoDeCrud) throws Exception {
+			String nomeRelatorio, Integer pagina, Integer quantidade, String atributoOrdenado, String ordem, ServicoDeCrud<E, ID> servicoDeCrud) throws Exception {
 		
 		Iterable<E> entidadesParaImpressao = obtemListaDeRegistros(objetoParaImpressao.getEntidadeDeExemplo(), pagina, quantidade, atributoOrdenado, ordem, servicoDeCrud);
 		
-		byte[] conteudo = geradorDeRelatorioParaListagem.gerar(objetoParaImpressao.getAtributos(), objetoParaImpressao.getTitulos(), entidadesParaImpressao);
+		byte[] conteudo = geradorDeRelatorioParaListagem.gerar(nomeRelatorio, objetoParaImpressao.getAtributos(), objetoParaImpressao.getTitulos(), entidadesParaImpressao);
 		
 		File arquivoPdf = File.createTempFile("Abacate", String.valueOf(System.currentTimeMillis()));
 		Files.write(conteudo, arquivoPdf);

@@ -45,11 +45,11 @@ public class PdfRest {
 		sessao.setAttribute(ConstantesDeConfiguracao.Sessao.USUARIO, repo.findAll().get(0));
 		
 		ObjetoParaImpressao obj = new ObjetoParaImpressao();
+		obj.setNomeRelatorio("Lista de Logs do sistema");
 		obj.setAtributos(Arrays.asList("id", "dataHora", "tabela", "acao", "usuario.nome", "usuario.email"));
 		obj.setTitulos(Arrays.asList("Id", "Data/Hora", "Tabela", "Ação", "Usuário", "E-mail"));
 		obj.setAtributoOrdenado("id");
 		obj.setOrdem("desc");
-//		obj.setQuantidade(5);
 		RegistroLog ex = new RegistroLog();
 		obj.setEntidadeDeExemplo(ex);
 		

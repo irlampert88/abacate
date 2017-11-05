@@ -53,7 +53,7 @@ public class PdfServicoImpl
 		
 		ObjetoParaImpressao paraImpressao = gson.fromJson(jsonDoObjeto, ObjetoParaImpressao.class);
 		
-		File arquivoPdf = impressaoDeEntidades.gerarListaParaImpressao(paraImpressao, paraImpressao.getPagina(), 
+		File arquivoPdf = impressaoDeEntidades.gerarListaParaImpressao(paraImpressao, paraImpressao.getNomeRelatorio(), paraImpressao.getPagina(), 
 				paraImpressao.getQuantidade(), paraImpressao.getAtributoOrdenado(), paraImpressao.getOrdem(), servicoDeCrud);
 		
 		return arquivoPdf;

@@ -13,7 +13,7 @@ public interface ImpressaoDeEntidades
 	extends Serializable {
 
 	public <E extends EntidadeAbstrata<ID>, ID extends Serializable> File 
-		gerarListaParaImpressao(ObjetoParaImpressao objetoParaImpressao, Integer pagina, Integer quantidade,
+		gerarListaParaImpressao(ObjetoParaImpressao objetoParaImpressao, String nomeRelatorio, Integer pagina, Integer quantidade,
 				String atributoOrdenado, String ordem, ServicoDeCrud<E, ID> servicoDeCrud)
 			throws Exception;
 

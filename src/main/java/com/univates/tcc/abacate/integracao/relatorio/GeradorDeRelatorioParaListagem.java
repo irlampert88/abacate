@@ -10,5 +10,5 @@ import com.univates.tcc.abacate.dominio.entidades.EntidadeAbstrata;
 public interface GeradorDeRelatorioParaListagem {
 
 	<E extends EntidadeAbstrata<ID>, ID extends Serializable> byte[] 
-		gerar(Iterable<String> atributosParaListar, Iterable<String> colunas, Iterable<E> entidadesParaImpressao) throws Exception;
+		gerar(String nomeRelatorio, Iterable<String> atributosParaListar, Iterable<String> colunas, Iterable<E> entidadesParaImpressao) throws Exception;
 }

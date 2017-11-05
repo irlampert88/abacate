@@ -1,6 +1,7 @@
 package com.univates.tcc.abacate.integracao.relatorio.impl;
 
 import static com.itextpdf.text.Element.ALIGN_LEFT;
+import static com.itextpdf.text.Element.ALIGN_CENTER;
 import static com.itextpdf.text.Element.ALIGN_TOP;
 import static com.itextpdf.text.pdf.ColumnText.showTextAligned;
 
@@ -33,11 +34,13 @@ public class GeradorDeRelatoriosParaListagemImpl
 	private Iterable<String> atributosParaListar;
 	private Iterable<? extends EntidadeAbstrata<?>> entidadesParaImpressao;
 	private Iterable<String> colunas;
+	private String nomeRelatorio;
 
 	@Override
-	public <E extends EntidadeAbstrata<ID>, ID extends Serializable> byte[] gerar(Iterable<String> atributosParaListar, Iterable<String> colunas,
+	public <E extends EntidadeAbstrata<ID>, ID extends Serializable> byte[] gerar(String nomeRelatorio, Iterable<String> atributosParaListar, Iterable<String> colunas,
 			Iterable<E> entidadesParaImpressao) throws Exception {
 		
+		this.nomeRelatorio = nomeRelatorio;
 		this.atributosParaListar = atributosParaListar;
 		this.colunas = colunas;
 		this.entidadesParaImpressao = entidadesParaImpressao;
@@ -63,7 +66,7 @@ public class GeradorDeRelatoriosParaListagemImpl
 		c.setPaddingBottom(10f);
 		c.setHorizontalAlignment(Element.ALIGN_CENTER);
 		c.setBorder(Rectangle.NO_BORDER);
-		c.addElement(new Phrase("Lista de registros", ConstantesDoRelatorio.ARIAL_12));
+		c.addElement(new Phrase(nomeRelatorio, ConstantesDoRelatorio.ARIAL_12));
 		tabela.addCell(c);
 
 		criaCabecalhoDaTabela(tabela);
