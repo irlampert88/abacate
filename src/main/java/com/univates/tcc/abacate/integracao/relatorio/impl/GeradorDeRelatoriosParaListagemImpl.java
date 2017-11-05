@@ -2,7 +2,6 @@ package com.univates.tcc.abacate.integracao.relatorio.impl;
 
 import static com.itextpdf.text.Element.ALIGN_LEFT;
 import static com.itextpdf.text.Element.ALIGN_TOP;
-import static com.itextpdf.text.Element.ALIGN_CENTER;
 import static com.itextpdf.text.pdf.ColumnText.showTextAligned;
 
 import java.io.Serializable;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Component;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;

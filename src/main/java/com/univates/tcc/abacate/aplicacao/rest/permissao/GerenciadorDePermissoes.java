@@ -30,7 +30,7 @@ public class GerenciadorDePermissoes {
 		if (permissaoRequerida == null) {
 			return true;
 		}
-		
+
 		usuarioServico.validarSeUsuarioPossuiPermissao(usuarioDoToken, permissaoRequerida.tipoDePermissao(), classeDaEntidade(handlerMethod));
 		
 		return true;

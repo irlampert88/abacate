@@ -83,6 +83,9 @@ public final class UsuarioServicoImpl
 
 	@Override
 	public void validarSeUsuarioPossuiPermissao(Usuario usuario, TipoDePermissao tipoDePermissao, Class<? extends EntidadeAbstrata<?>> classeDaEntidade) {
+		if (usuario == null) 
+			throw new UsuarioInvalido("Usuário não informado para validação de permissão.");
+		
 		if (naoPossuiPermissao(tipoDePermissao, usuario, nomeDaTablea(classeDaEntidade)))
 			throw new SemPermissao("Usuário " + usuario.getNome() + " não possui permissao de " + tipoDePermissao.toString() + " na tabela " + nomeDaTablea(classeDaEntidade));
 	}

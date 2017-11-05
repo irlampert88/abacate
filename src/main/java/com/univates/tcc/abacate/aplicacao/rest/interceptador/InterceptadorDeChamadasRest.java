@@ -2,6 +2,7 @@ package com.univates.tcc.abacate.aplicacao.rest.interceptador;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -19,11 +20,13 @@ public class InterceptadorDeChamadasRest implements HandlerInterceptor {
 
 	private GerenciadorDeAutenticacao gerenciadorDeAutenticacao;
 	private GerenciadorDePermissoes gerenciadorDePermissoes;
+	private HttpSession sessao;
 
 	@Autowired
-	public InterceptadorDeChamadasRest(GerenciadorDeAutenticacao gerenciadorDeAutenticacao, GerenciadorDePermissoes gerenciadorDePermissoes) {
+	public InterceptadorDeChamadasRest(GerenciadorDeAutenticacao gerenciadorDeAutenticacao, GerenciadorDePermissoes gerenciadorDePermissoes, HttpSession sessao) {
 		this.gerenciadorDeAutenticacao = gerenciadorDeAutenticacao;
 		this.gerenciadorDePermissoes = gerenciadorDePermissoes;
+		this.sessao = sessao;
 	}
 	
 	@Override
@@ -38,6 +41,8 @@ public class InterceptadorDeChamadasRest implements HandlerInterceptor {
 
 		Usuario usuarioDoToken = gerenciadorDeAutenticacao.autenticarToken(request, handlerMethod);
 		gerenciadorDePermissoes.validarSeUsuarioPossuiPermissao(request, handlerMethod, usuarioDoToken);
+		
+		sessao.setAttribute(ConstantesDeConfiguracao.Sessao.USUARIO, usuarioDoToken);
 		
 		return true;
 	}

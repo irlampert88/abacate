@@ -29,5 +29,9 @@ public interface ConstantesDeConfiguracao {
 	public interface Autenticacao {
 		public final String TOKEN = "Authorization"; 
 	}
+
+	public interface Sessao {
+		public final String USUARIO = "UsuarioLogado";
+	}
 	
 }

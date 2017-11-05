@@ -17,6 +17,12 @@ public class FabricaDePageRequest {
 		if (naoPossuiOrdenacao(atributoOrdenado))
 			return new PageRequest(pagina, quantidade);
 			
+		pagina = pagina == null ? 0 : pagina;
+		quantidade = quantidade == null ? Integer.MAX_VALUE : quantidade;
+		
+		if (atributoOrdenado == null) 
+			return new PageRequest(pagina, quantidade);
+		
 		return new PageRequest(pagina, quantidade, new Sort(Direction.fromString(ordem), atributoOrdenado));
 	}
 

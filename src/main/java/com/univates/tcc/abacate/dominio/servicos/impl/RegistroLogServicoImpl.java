@@ -2,11 +2,14 @@ package com.univates.tcc.abacate.dominio.servicos.impl;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.univates.tcc.abacate.aplicacao.configuracoes.ConstantesDeConfiguracao;
 import com.univates.tcc.abacate.dominio.agregadores.Acoes;
 import com.univates.tcc.abacate.dominio.construtores.ConstrutorDeRegistroLog;
 import com.univates.tcc.abacate.dominio.entidades.EntidadeAbstrata;
@@ -24,12 +27,12 @@ public final class RegistroLogServicoImpl
 	extends ServicoDeCrudImpl<RegistroLogRepositorio, RegistroLog, Integer>
 		implements RegistroLogServico {
 
+	private HttpSession sessao;
+
 	@Autowired
-	private UsuarioRepositorio repositorioTEMPORARIO; // TODO REMOVER ISSO!!!!
-	
-	@Autowired
-	public RegistroLogServicoImpl(RegistroLogRepositorio repositorio, ConsultasPeloExemplo consultaPeloExemplo) {
+	public RegistroLogServicoImpl(RegistroLogRepositorio repositorio, ConsultasPeloExemplo consultaPeloExemplo,  HttpSession sessao) {
 		super(repositorio, consultaPeloExemplo);
+		this.sessao = sessao;
 	}
 
 	@Override
@@ -55,9 +58,7 @@ public final class RegistroLogServicoImpl
 	}
 
 	private Usuario buscaUsuarioLogado() {
-		// TODO Mudar para Sessão?
-		List<Usuario> usuarios = repositorioTEMPORARIO.findAll();
-		return usuarios.isEmpty() ? null : usuarios.get(0);
+		return (Usuario) sessao.getAttribute(ConstantesDeConfiguracao.Sessao.USUARIO);
 	}
 	
 }

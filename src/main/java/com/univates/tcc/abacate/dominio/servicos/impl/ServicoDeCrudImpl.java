@@ -67,9 +67,6 @@ class ServicoDeCrudImpl<R extends RepositorioDeCrud<E, ID>, E extends EntidadeAb
 
 	@Override
 	public Collection<E> buscarTodosComPaginacao(Integer pagina, Integer quantidade, String atributoOrdenado, String ordem) {
-		if (pagina == null || quantidade == null)
-			return repositorio.findAll();
-		
 		Page<E> paginaComRegistros = repositorio.findAll(FabricaDePageRequest.criar(pagina, quantidade, atributoOrdenado, ordem));
 		return paginaComRegistros.getContent();
 	}
