@@ -38,7 +38,7 @@ public class PdfServicoImpl
 	public File gerarArquivoPdf(String classe, String ojbEmBase64) throws Exception {
 		Class classeDaEntidade = ProcuradorDeClasse.classeDaEntidadePeloNome(classe);
 		
-		String jsonDoObjeto = new String(Base64.getDecoder().decode(ojbEmBase64));
+		String jsonDoObjeto = new String(Base64.getDecoder().decode(ojbEmBase64), "iso-8859-1");
 		
 		Gson gson = new GsonBuilder()
 				.registerTypeAdapter(EntidadeAbstrata.class, new EntidadeAbstrataDeserializer(classeDaEntidade.getCanonicalName()))
