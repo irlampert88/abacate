@@ -3,14 +3,11 @@ package com.univates.tcc.abacate.dominio.servicos.impl;
 import java.io.File;
 import java.util.Base64;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.univates.tcc.abacate.aplicacao.configuracoes.ConstantesDeConfiguracao;
 import com.univates.tcc.abacate.aplicacao.rest.permissao.TipoDePermissao;
 import com.univates.tcc.abacate.dominio.agregadores.ObjetoParaImpressao;
 import com.univates.tcc.abacate.dominio.entidades.EntidadeAbstrata;
@@ -28,22 +25,18 @@ public class PdfServicoImpl
 	
 	private ImpressaoDeEntidades impressaoDeEntidades;
 	private RegistroLogServico servicoDeCrud;
-	private HttpSession sessao;
 	private UsuarioServico usuarioServico;
 
 	@Autowired
-	public PdfServicoImpl(ImpressaoDeEntidades impressaoDeEntidades, RegistroLogServico servicoDeCrud, HttpSession sessao, UsuarioServico usuarioServico) {
+	public PdfServicoImpl(ImpressaoDeEntidades impressaoDeEntidades, RegistroLogServico servicoDeCrud, UsuarioServico usuarioServico) {
 		this.impressaoDeEntidades = impressaoDeEntidades;
 		this.servicoDeCrud = servicoDeCrud;
-		this.sessao = sessao;
 		this.usuarioServico = usuarioServico;
 	}
 	
 	@Override
 	public File gerarArquivoPdf(String classe, String ojbEmBase64) throws Exception {
 		Class classeDaEntidade = ProcuradorDeClasse.classeDaEntidadePeloNome(classe);
-		
-		validarPermissaoDoUsuarioLogado(classeDaEntidade);
 		
 		String jsonDoObjeto = new String(Base64.getDecoder().decode(ojbEmBase64));
 		
@@ -52,6 +45,8 @@ public class PdfServicoImpl
 				.create();
 		
 		ObjetoParaImpressao paraImpressao = gson.fromJson(jsonDoObjeto, ObjetoParaImpressao.class);
+
+		validarPermissaoDoUsuarioLogado(classeDaEntidade, paraImpressao.getAuthorization());
 		
 		File arquivoPdf = impressaoDeEntidades.gerarListaParaImpressao(paraImpressao, paraImpressao.getNomeRelatorio(), paraImpressao.getPagina(), 
 				paraImpressao.getQuantidade(), paraImpressao.getAtributoOrdenado(), paraImpressao.getOrdem(), servicoDeCrud);
@@ -59,8 +54,8 @@ public class PdfServicoImpl
 		return arquivoPdf;
 	}
 
-	private void validarPermissaoDoUsuarioLogado(Class classeDaEntidade) {
-		Usuario usuarioLogado = (Usuario) sessao.getAttribute(ConstantesDeConfiguracao.Sessao.USUARIO);
+	private void validarPermissaoDoUsuarioLogado(Class classeDaEntidade, String authorization) {
+		Usuario usuarioLogado = usuarioServico.autenticarToken(authorization);
 		usuarioServico.validarSeUsuarioPossuiPermissao(usuarioLogado, TipoDePermissao.CONSULTAR, classeDaEntidade);
 	}
 

@@ -23,6 +23,7 @@ public class ObjetoParaImpressao
 	private Integer quantidade;
 	private String atributoOrdenado; 
 	private String ordem;
+	private String authorization;
 
 	public ObjetoParaImpressao() {
 	}
@@ -90,4 +91,13 @@ public class ObjetoParaImpressao
 	public void setNomeRelatorio(String nomeRelatorio) {
 		this.nomeRelatorio = nomeRelatorio;
 	}
+	
+	public String getAuthorization() {
+		return authorization;
+	}
+	
+	public void setAuthorization(String authorization) {
+		this.authorization = authorization;
+	}
+	
 }

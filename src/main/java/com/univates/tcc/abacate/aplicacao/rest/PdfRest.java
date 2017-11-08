@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
-import com.univates.tcc.abacate.aplicacao.configuracoes.ConstantesDeConfiguracao;
 import com.univates.tcc.abacate.dominio.agregadores.ObjetoParaImpressao;
 import com.univates.tcc.abacate.dominio.entidades.RegistroLog;
 import com.univates.tcc.abacate.dominio.repositorios.UsuarioRepositorio;
@@ -30,20 +29,14 @@ import com.univates.tcc.abacate.dominio.servicos.PdfServico;
 public class PdfRest {
 	
 	private PdfServico pdfServico;
-	private HttpSession sessao;
-	private UsuarioRepositorio repo;
 
 	@Autowired
 	public PdfRest(PdfServico pdfServico, HttpSession sessao, UsuarioRepositorio repo) {
 		this.pdfServico = pdfServico;
-		this.sessao = sessao;
-		this.repo = repo;
 	}
 
 	@RequestMapping(value = "/fake", method = RequestMethod.GET, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
 	public ResponseEntity<InputStreamResource> download() throws Exception {
-		sessao.setAttribute(ConstantesDeConfiguracao.Sessao.USUARIO, repo.findAll().get(0));
-		
 		ObjetoParaImpressao obj = new ObjetoParaImpressao();
 		obj.setNomeRelatorio("Lista de Logs do sistema");
 		obj.setAtributos(Arrays.asList("id", "dataHora", "tabela", "acao", "usuario.nome", "usuario.email"));
@@ -52,6 +45,8 @@ public class PdfRest {
 		obj.setOrdem("desc");
 		RegistroLog ex = new RegistroLog();
 		obj.setEntidadeDeExemplo(ex);
+		
+		obj.setAuthorization("YWRtaW46YWRtaW4=");
 		
 		String json = new Gson().toJson(obj);
 		System.out.println(json);
