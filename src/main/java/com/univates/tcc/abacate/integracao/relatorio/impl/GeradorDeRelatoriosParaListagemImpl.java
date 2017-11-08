@@ -98,6 +98,9 @@ public class GeradorDeRelatoriosParaListagemImpl
 	}
 
 	private String valorTratado(Object valorCampo, String[] partes) throws Exception {
+		if (valorCampo == null)
+			return "";
+		
 		if (partes.length > 1)
 			return procuraValorDoAtributo((EntidadeAbstrata<?>) valorCampo, partes[1]);
 		
