@@ -1,6 +1,7 @@
 package com.univates.tcc.abacate.dominio.servicos.impl;
 
 import java.io.File;
+import java.net.URLDecoder;
 import java.nio.charset.Charset;
 import java.util.Base64;
 
@@ -39,7 +40,9 @@ public class PdfServicoImpl
 	public File gerarArquivoPdf(String classe, String ojbEmBase64) throws Exception {
 		Class classeDaEntidade = ProcuradorDeClasse.classeDaEntidadePeloNome(classe);
 		
-		String jsonDoObjeto = new String(Base64.getDecoder().decode(ojbEmBase64.getBytes()), Charset.forName("iso-8859-1"));
+		String objDecodificado = URLDecoder.decode(ojbEmBase64, "UTF-8");
+		
+		String jsonDoObjeto = new String(Base64.getDecoder().decode(objDecodificado.getBytes()), Charset.forName("iso-8859-1"));
 		
 		Gson gson = new GsonBuilder()
 				.registerTypeAdapter(EntidadeAbstrata.class, new EntidadeAbstrataDeserializer(classeDaEntidade.getCanonicalName()))
