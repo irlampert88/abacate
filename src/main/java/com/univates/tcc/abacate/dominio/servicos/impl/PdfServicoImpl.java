@@ -40,9 +40,9 @@ public class PdfServicoImpl
 	public File gerarArquivoPdf(String classe, String ojbEmBase64) throws Exception {
 		Class classeDaEntidade = ProcuradorDeClasse.classeDaEntidadePeloNome(classe);
 		
-		String objDecodificado = URLDecoder.decode(ojbEmBase64, "UTF-8");
-		
-		String jsonDoObjeto = new String(Base64.getDecoder().decode(objDecodificado.getBytes()), Charset.forName("iso-8859-1"));
+		String decodificado = new String(Base64.getDecoder().decode(ojbEmBase64.getBytes()), Charset.forName("UTF-8"));
+
+		String jsonDoObjeto = URLDecoder.decode(decodificado, "UTF-8");
 		
 		Gson gson = new GsonBuilder()
 				.registerTypeAdapter(EntidadeAbstrata.class, new EntidadeAbstrataDeserializer(classeDaEntidade.getCanonicalName()))
