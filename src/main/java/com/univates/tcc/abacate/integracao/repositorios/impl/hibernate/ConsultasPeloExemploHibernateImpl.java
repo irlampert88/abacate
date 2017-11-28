@@ -1,5 +1,6 @@
 package com.univates.tcc.abacate.integracao.repositorios.impl.hibernate;
 
+import java.lang.reflect.Field;
 import java.util.Collection;
 
 import javax.persistence.EntityManager;
@@ -14,7 +15,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
 import com.univates.tcc.abacate.dominio.entidades.EntidadeAbstrata;
-import com.univates.tcc.abacate.dominio.entidades.Usuario;
 import com.univates.tcc.abacate.integracao.repositorios.agregadores.ConsultasPeloExemplo;
 
 @Repository
@@ -39,6 +39,19 @@ public class ConsultasPeloExemploHibernateImpl
 		Example example = Example.create(exampleEntity).enableLike(MatchMode.ANYWHERE).ignoreCase();
 		Criteria criteria = session.createCriteria(exampleEntity.getClass()).add(example);
 
+		try {
+			for (Field f : exampleEntity.getClass().getDeclaredFields()) {
+				f.setAccessible(true);
+				Object valorDoCampo = f.get(exampleEntity);
+				if (valorDoCampo != null && valorDoCampo instanceof EntidadeAbstrata) {
+					Example exemploSubEntidade = Example.create(valorDoCampo).enableLike(MatchMode.ANYWHERE).ignoreCase();
+					criteria.createCriteria(f.getName()).add(exemploSubEntidade);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		return (Collection<E>) criteria.list();
 	}
 
@@ -49,6 +62,19 @@ public class ConsultasPeloExemploHibernateImpl
 
 		Example example = Example.create(exampleEntity).enableLike(MatchMode.ANYWHERE).ignoreCase();
 		Criteria criteria = session.createCriteria(exampleEntity.getClass()).add(example);
+		
+		try {
+			for (Field f : exampleEntity.getClass().getDeclaredFields()) {
+				f.setAccessible(true);
+				Object valorDoCampo = f.get(exampleEntity);
+				if (valorDoCampo != null && valorDoCampo instanceof EntidadeAbstrata) {
+					Example exemploSubEntidade = Example.create(valorDoCampo).enableLike(MatchMode.ANYWHERE).ignoreCase();
+					criteria.createCriteria(f.getName()).add(exemploSubEntidade);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		pagina = pagina == null ? 0 : pagina;
 		quantidade = quantidade == null ? Integer.MAX_VALUE : quantidade;
